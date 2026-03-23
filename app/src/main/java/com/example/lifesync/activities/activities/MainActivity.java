@@ -1,4 +1,4 @@
-package com.example.lifesync.activities;
+package com.example.lifesync.activities.activities;
 
 import android.os.Bundle;
 
