@@ -12,16 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifeSync">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".activities.activities.ExpenseActivity"
+            android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.activities.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.activities.NotesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

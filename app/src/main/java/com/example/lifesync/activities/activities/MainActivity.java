@@ -1,12 +1,10 @@
-package com.example.lifesync;
+package com.example.lifesync.activities.activities;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.lifesync.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,5 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle s) {
         super.onCreate(s);
         setContentView(R.layout.activity_main);
+
     }
 }
