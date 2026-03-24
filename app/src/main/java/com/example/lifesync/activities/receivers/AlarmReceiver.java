@@ -6,11 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 
-import com.example.lifesync.R;
+
 
 public class AlarmReceiver extends BroadcastReceiver {
 
