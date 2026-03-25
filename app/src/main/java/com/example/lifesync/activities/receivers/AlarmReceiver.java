@@ -15,7 +15,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        android.widget.Toast.makeText(context, "Alarm Triggered!", android.widget.Toast.LENGTH_LONG).show();
+//        android.widget.Toast.makeText(context, "Alarm Triggered!", android.widget.Toast.LENGTH_LONG).show();
+        Intent serviceIntent = new Intent(context, com.example.lifesync.activities.activities.AlarmActivity.class);
+        serviceIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(serviceIntent);
 
         String title = intent.getStringExtra("title");
         NotificationManager manager= (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
