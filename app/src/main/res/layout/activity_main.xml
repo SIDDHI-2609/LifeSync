@@ -31,8 +31,8 @@
 
             <EditText
                 android:id="@+id/etEmail"
-                android:hint="Enter Email"
                 android:layout_width="match_parent"
+                android:hint="Enter Email"
                 android:layout_height="wrap_content"/>
 
             <EditText
@@ -53,19 +53,11 @@
                 android:layout_height="wrap_content"/>
 
             <Button
-                android:id="@+id/btnSignIn"
+                android:id="@+id/btnSignin"
                 android:text="Sign In"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"/>
-
-            <Button
-                android:id="@+id/btnSignUp"
-                android:text="Sign Up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
