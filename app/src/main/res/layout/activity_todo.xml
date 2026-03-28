@@ -1,30 +1,56 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="0dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="#7B00EE"
+        android:elevation="4dp">
+    </androidx.appcompat.widget.Toolbar>
+
+
     <EditText
         android:id="@+id/etTask"
-        android:hint="Enter task"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="10dp"
+        android:hint="Enter task" />
 
-    <Button
-        android:id="@+id/btnTime"
-        android:text="Pick Time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:text="Add Task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:text="Pick Time" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:text="Add Task" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="20dp" />
+
 </LinearLayout>
