@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.example.lifesync.activities.models.User;
 public class MainActivity extends AppCompatActivity {
 
     EditText Email, Password;
+    TextView tvSignUp;
     Button btnLogin;
     AppDatabase db;
     @Override
@@ -26,12 +28,19 @@ public class MainActivity extends AppCompatActivity {
         Email = findViewById(R.id.etEmail);
         Password = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnSignin);
+        tvSignUp = findViewById(R.id.tvSignup);
 
         //database connectivity
         db = Room.databaseBuilder(
                 getApplicationContext(), AppDatabase.class,"lifesync-db"
         ).fallbackToDestructiveMigration().allowMainThreadQueries().build();
         btnLogin.setOnClickListener(v-> loginUser());
+
+        tvSignUp.setOnClickListener(v->{
+            Intent i = new Intent(MainActivity.this, SignupActivity.class);
+            startActivity(i);
+            finish();
+        });
     }
 
     private void loginUser(){
@@ -59,5 +68,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+
+
     }
 }

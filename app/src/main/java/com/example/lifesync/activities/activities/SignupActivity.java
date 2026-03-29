@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,6 +21,7 @@ import com.example.lifesync.activities.models.User;
 public class SignupActivity extends AppCompatActivity {
     EditText name, Email, Password, ConfirmPassword, Mobile;
     Button SignUpbtn;
+    TextView tvLogin;
     AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,19 @@ public class SignupActivity extends AppCompatActivity {
          ConfirmPassword = findViewById(R.id.etConfirmPassword);
          Mobile = findViewById(R.id.etMobile);
          SignUpbtn = findViewById(R.id.btnRegister);
+         tvLogin = findViewById(R.id.tvLogin);
 
          db = Room.databaseBuilder(
                 getApplicationContext(),
                 AppDatabase.class, "lifesync-db"
         ).allowMainThreadQueries().build();
         SignUpbtn.setOnClickListener(v -> registerUser());
+
+        tvLogin.setOnClickListener(v->{
+            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
     private void registerUser(){
         String userName = name.getText().toString().trim();
@@ -84,5 +93,6 @@ public class SignupActivity extends AppCompatActivity {
         Intent i = new Intent(SignupActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();
+
     }
 }
