@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#F5F5F5">
+    android:background="#E1F9F0">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -37,7 +37,9 @@
                     android:id="@+id/etName"
                     android:hint="Enter Your Name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_glow" />
 
                 <EditText
                     android:id="@+id/etMobile"
@@ -45,7 +47,10 @@
                     android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_glow"
+                    />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -53,7 +58,9 @@
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_glow"/>
 
                 <EditText
                     android:id="@+id/etPassword"
@@ -61,7 +68,9 @@
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_glow"/>
 
                 <EditText
                     android:id="@+id/etConfirmPassword"
@@ -69,14 +78,18 @@
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_glow"/>
 
                 <Button
                     android:id="@+id/btnRegister"
                     android:text="Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:translationZ="4dp"
+                    android:backgroundTint="#50A886" />
                 <TextView
                     android:id="@+id/tvLogin"
                     android:text="Already have an account? Login"

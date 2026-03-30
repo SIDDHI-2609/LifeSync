@@ -1,9 +1,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="0dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E1F9F0">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="#50A886"
+        android:elevation="4dp">
+    </androidx.appcompat.widget.Toolbar>
 
     <!-- 🔥 Analytics Section -->
     <TextView
@@ -12,44 +21,65 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+
+        />
 
     <TextView
         android:id="@+id/tvMonthly"
         android:text="Monthly: ₹0"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
 
     <!-- 🔹 Inputs -->
     <EditText
         android:id="@+id/etTitle"
         android:hint="Title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext_glow" />
 
     <EditText
         android:id="@+id/etAmount"
         android:hint="Amount"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_glow" />
+
 
     <EditText
         android:id="@+id/etCategory"
         android:hint="Category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext_glow" />
+
 
     <Button
         android:id="@+id/btnAdd"
         android:text="Add Expense"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="12dp"
+        android:translationZ="4dp"
+        android:backgroundTint="#50A886" />
     <!-- 🔥 Expense List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"/>
 
 </LinearLayout>
