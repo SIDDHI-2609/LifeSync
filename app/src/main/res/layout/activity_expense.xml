@@ -1,5 +1,6 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="0dp"
     android:layout_width="match_parent"
@@ -14,6 +15,15 @@
         android:elevation="4dp">
     </androidx.appcompat.widget.Toolbar>
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="15dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#B2EBD0">
+
     <!-- 🔥 Analytics Section -->
     <TextView
         android:id="@+id/tvTotal"
@@ -23,16 +33,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
-
-        />
+        android:padding="20dp" />
 
     <TextView
         android:id="@+id/tvMonthly"
         android:text="Monthly: ₹0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"/>
+        android:padding="10dp" />
+
+    </androidx.cardview.widget.CardView>
+
 
     <!-- 🔹 Inputs -->
     <EditText
@@ -40,7 +51,7 @@
         android:hint="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="12dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edittext_glow" />
 
@@ -51,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:padding="10dp"
+        android:padding="12dp"
         android:background="@drawable/edittext_glow" />
 
 
@@ -60,9 +71,10 @@
         android:hint="Category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="12dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/edittext_glow" />
+        android:background="@drawable/edittext_glow"
+        />
 
 
     <Button
@@ -70,10 +82,13 @@
         android:text="Add Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="12dp"
         android:layout_marginTop="12dp"
         android:translationZ="4dp"
-        android:backgroundTint="#50A886" />
+        android:backgroundTint="#50A886"
+        android:layout_marginHorizontal="16dp"
+        app:cornerRadius="15dp"
+        android:textStyle="bold"/>
     <!-- 🔥 Expense List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
