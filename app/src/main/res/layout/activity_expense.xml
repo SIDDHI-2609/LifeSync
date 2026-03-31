@@ -48,33 +48,35 @@
     <!-- 🔹 Inputs -->
     <EditText
         android:id="@+id/etTitle"
-        android:hint="Title"
-        android:layout_width="match_parent"
+        android:layout_width="378dp"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/edittext_glow" />
+        android:background="@drawable/edittext_glow"
+        android:hint="Title"
+        android:padding="12dp" />
 
     <EditText
         android:id="@+id/etAmount"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext_glow"
         android:hint="Amount"
         android:inputType="numberDecimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:padding="12dp"
-        android:background="@drawable/edittext_glow" />
+        android:padding="12dp" />
 
 
     <EditText
         android:id="@+id/etCategory"
-        android:hint="Category"
-        android:layout_width="match_parent"
+        android:layout_width="377dp"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edittext_glow"
-        />
+        android:hint="Category"
+        android:padding="12dp" />
 
 
     <Button
@@ -82,7 +84,8 @@
         android:text="Add Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:layout_marginStart="27dp"
+        android:padding="10dp"
         android:layout_marginTop="12dp"
         android:translationZ="4dp"
         android:backgroundTint="#50A886"

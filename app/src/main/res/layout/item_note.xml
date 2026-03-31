@@ -1,5 +1,15 @@
-<LinearLayout
+
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="5dp">
+
+<LinearLayout
     android:padding="10dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -15,17 +25,39 @@
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Note description goes here..."/>
 
-    <Button
-        android:id="@+id/btnDelete"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete" />
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        android:gravity="end">
 
-    <Button
-        android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit" />
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:layout_marginEnd="90dp"
+            app:backgroundTint="#50A886"
+            android:textStyle="bold"
+            app:cornerRadius="15dp"/>
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:layout_marginEnd="20dp"
+            app:backgroundTint="#50A886"
+            android:textStyle="bold"
+            app:cornerRadius="15dp" />
+
+    </LinearLayout>
 </LinearLayout>
+
+</androidx.cardview.widget.CardView>
