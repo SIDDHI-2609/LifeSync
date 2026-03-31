@@ -1,18 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
     namespace = "com.example.lifesync"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk 36
 
     defaultConfig {
         applicationId = "com.example.lifesync"
-        minSdk = 24
-        targetSdk = 36
-        versionCode = 1
+        minSdk 24
+        targetSdk 36
+        versionCode 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -35,6 +34,7 @@ android {
         exclude 'META-INF/*'
     }
 }
+
 configurations.all {
     exclude group: 'org.jetbrains', module: 'annotations'
 }
@@ -52,4 +52,9 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     annotationProcessor libs.room.compiler
+
+    implementation platform('com.google.firebase:firebase-bom:34.11.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-auth'
 }
