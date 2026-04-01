@@ -19,7 +19,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_margin="15dp"
+        android:layout_margin="35dp"
         app:cardCornerRadius="18dp"
         app:cardElevation="8dp"
         app:cardBackgroundColor="#B2EBD0">
@@ -48,35 +48,35 @@
     <!-- 🔹 Inputs -->
     <EditText
         android:id="@+id/etTitle"
-        android:layout_width="378dp"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edittext_glow"
         android:hint="Title"
-        android:padding="12dp" />
+        android:padding="9dp" />
 
     <EditText
         android:id="@+id/etAmount"
-        android:layout_width="379dp"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edittext_glow"
         android:hint="Amount"
         android:inputType="numberDecimal"
-        android:padding="12dp" />
+        android:padding="9dp" />
 
 
     <EditText
         android:id="@+id/etCategory"
-        android:layout_width="377dp"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edittext_glow"
         android:hint="Category"
-        android:padding="12dp" />
+        android:padding="9dp" />
 
 
     <Button
@@ -84,7 +84,7 @@
         android:text="Add Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="40dp"
         android:padding="10dp"
         android:layout_marginTop="12dp"
         android:translationZ="4dp"
