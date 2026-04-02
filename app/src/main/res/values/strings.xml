@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LifeSync</string>
+    <string name="alarm_service_label">Alarm Service Usage</string>
 </resources>
