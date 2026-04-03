@@ -23,7 +23,7 @@ import com.example.lifesync.activities.models.Expense;
 import java.util.Calendar;
 import java.util.List;
 
-public class ExpenseActivity extends AppCompatActivity {
+public class ExpenseActivity extends BaseActivity {
 
     AppDatabase db ;
     RecyclerView recyclerView;
@@ -33,6 +33,7 @@ public class ExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
+        setupToolbar();
 
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "lifesync-db").allowMainThreadQueries().build();

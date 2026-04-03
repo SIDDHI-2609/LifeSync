@@ -16,7 +16,7 @@ import com.example.lifesync.activities.models.Note;
 
 import java.util.List;
 
-public class NotesActivity extends AppCompatActivity {
+public class NotesActivity extends BaseActivity {
 
     private AppDatabase db;
     private RecyclerView recyclerView;
@@ -26,6 +26,7 @@ public class NotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        setupToolbar();
 
         //Database
         db = Room.databaseBuilder(getApplicationContext(),

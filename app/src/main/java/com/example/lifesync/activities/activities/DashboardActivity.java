@@ -15,13 +15,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.lifesync.R;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
     Button btnNotes, btnTodo, btnExpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        setupToolbar();
 
         if (Build.VERSION.SDK_INT >= 33) {
             requestPermissions(

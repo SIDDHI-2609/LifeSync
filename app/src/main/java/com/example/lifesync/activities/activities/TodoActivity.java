@@ -27,7 +27,7 @@ import java.util.List;
 
 import com.example.lifesync.activities.receivers.AlarmReceiver;
 
-public class TodoActivity extends AppCompatActivity {
+public class TodoActivity extends BaseActivity{
 AppDatabase db;
 RecyclerView recyclerView;
 long selectedTime = 0;
@@ -39,6 +39,7 @@ long selectedTime = 0;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
+        setupToolbar();
 
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "lifesync-db").allowMainThreadQueries().build();
         EditText etTask = findViewById(R.id.etTask);
