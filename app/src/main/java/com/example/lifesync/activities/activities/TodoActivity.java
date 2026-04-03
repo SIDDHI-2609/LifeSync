@@ -56,11 +56,6 @@ long selectedTime = 0;
             new TimePickerDialog(this, (view, hour, minute) -> {
                 cal.set(Calendar.HOUR_OF_DAY, hour);
                 cal.set(Calendar.MINUTE, minute);
-                cal.set(Calendar.SECOND, 0);
-                cal.set(Calendar.MILLISECOND, 0);
-
-                long triggerTime = cal.getTimeInMillis();
-
                 selectedTime = cal.getTimeInMillis();
             }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show();
         });
@@ -88,36 +83,24 @@ long selectedTime = 0;
             db.todoDao().insert(todo);
 
             try {
+                Intent intent = new Intent(this, AlarmReceiver.class);
+                intent.putExtra("title", todo.title);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        this,
+                        (int) System.currentTimeMillis(),
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                );
+
                 AlarmManager alarmManager =
                         (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-                Intent intent = new Intent(this, AlarmReceiver.class);
-                intent.putExtra("title", "Test Alarm");
-
-                PendingIntent pendingIntent =
-                        PendingIntent.getBroadcast(
-                                this,
-                                10001,
-                                intent,
-                                PendingIntent.FLAG_UPDATE_CURRENT |
-                                        PendingIntent.FLAG_IMMUTABLE
-                        );
-
-                long triggerTime = System.currentTimeMillis() + 60000; // 1 minute
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            triggerTime,
-                            pendingIntent
-                    );
-                } else {
-                    alarmManager.setExact(
-                            AlarmManager.RTC_WAKEUP,
-                            triggerTime,
-                            pendingIntent
-                    );
-                }
+                alarmManager.set(
+                        AlarmManager.RTC_WAKEUP,
+                        todo.time,
+                        pendingIntent
+                );
 
             } catch (Exception e) {
                 e.printStackTrace();

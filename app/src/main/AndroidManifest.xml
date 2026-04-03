@@ -2,14 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
 
     <application
         android:allowBackup="true"
@@ -20,30 +15,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LifeSync">
-
         <activity
             android:name=".activities.activities.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.activities.MainActivity"
             android:exported="false" />
         <activity
             android:name=".activities.activities.DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".activities.activities.AlarmActivity"
-            android:showWhenLocked="true"
-            android:turnScreenOn="true"
-            android:exported="true" />
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true" />
         <activity
             android:name=".activities.activities.TodoActivity"
             android:exported="false" />
 
-        <receiver
-            android:name=".activities.receivers.AlarmReceiver"
-            android:exported="true"/>
-
-        <service
-            android:name=".activities.services.AlarmService"
-            android:exported="false"
-            android:foregroundServiceType="mediaPlayback" />
+        <receiver android:name=".activities.receivers.AlarmReceiver" />
 
         <activity
             android:name=".activities.activities.ExpenseActivity"
@@ -53,6 +42,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.activities.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.activities.SignupActivity2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,8 +52,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

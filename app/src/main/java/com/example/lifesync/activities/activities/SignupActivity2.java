@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity2 extends AppCompatActivity {
     EditText etName, etMobile, etEmail, etPassword, etConfirmPassword;
     Button btnRegister;
     TextView tvLogin;
@@ -41,7 +41,7 @@ public class SignupActivity extends AppCompatActivity {
 
         //Go to Login
         tvLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SignupActivity2.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
@@ -106,7 +106,7 @@ public class SignupActivity extends AppCompatActivity {
                 //save user data to firestore
                 db.collection("users").document(uid).set(userMap).addOnSuccessListener(unused -> {
                             Toast.makeText(this, "User Saved Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                            startActivity(new Intent(SignupActivity2.this, LoginActivity.class));
                             finish();
                         }).addOnFailureListener(e -> {
                             Toast.makeText(this, "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -122,7 +122,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            startActivity(new Intent(SignupActivity.this, DashboardActivity.class));
+            startActivity(new Intent(SignupActivity2.this, DashboardActivity.class));
             finish();
         }
     }

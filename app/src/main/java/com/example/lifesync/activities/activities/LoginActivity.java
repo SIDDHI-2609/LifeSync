@@ -1,10 +1,7 @@
 package com.example.lifesync.activities.activities;
 
-import android.app.AlarmManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignin.setOnClickListener(v -> loginUser());
         //Signup button
         tvSignup.setOnClickListener(v -> {
-            Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+            Intent i = new Intent(LoginActivity.this, SignupActivity2.class);
             startActivity(i);
             finish();
         });
