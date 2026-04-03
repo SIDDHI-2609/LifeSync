@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
 
     <application
         android:allowBackup="true"
@@ -19,9 +22,6 @@
             android:name=".activities.activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.activities.MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.activities.DashboardActivity"
             android:exported="false" />
         <activity
@@ -32,7 +32,9 @@
             android:name=".activities.activities.TodoActivity"
             android:exported="false" />
 
-        <receiver android:name=".activities.receivers.AlarmReceiver" />
+        <receiver
+            android:name=".activities.receivers.AlarmReceiver"
+            android:exported="true"/>
 
         <activity
             android:name=".activities.activities.ExpenseActivity"
@@ -40,9 +42,7 @@
         <activity
             android:name=".activities.activities.NotesActivity"
             android:exported="false" />
-        <activity
-            android:name=".activities.activities.SignupActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activities.activities.SignupActivity2"
             android:exported="true">
