@@ -8,10 +8,18 @@
     android:orientation="vertical"
     tools:context=".activities.activities.DashboardActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#50A886"
+        app:title="LifeSync"
+        android:elevation="4dp" />
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Notes" />
 
     <Button
