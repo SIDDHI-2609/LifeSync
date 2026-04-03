@@ -9,7 +9,8 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="?attr/actionBarSize"
+        app:title="LifeSync"
         android:background="#50A886"
         android:elevation="4dp">
     </androidx.appcompat.widget.Toolbar>
