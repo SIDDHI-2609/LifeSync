@@ -2,12 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
         android:allowBackup="true"
@@ -19,22 +22,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifeSync">
         <activity
+            android:name=".activities.activities.AlarmFullScreenActivity"
+            android:exported="false"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true" />
+        <activity
             android:name=".activities.activities.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".activities.activities.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.activities.AlarmActivity"
-            android:showOnLockScreen="true"
-            android:turnScreenOn="true" />
-        <activity
             android:name=".activities.activities.TodoActivity"
             android:exported="false" />
 
         <receiver
             android:name=".activities.receivers.AlarmReceiver"
-            android:exported="true"/>
+            android:exported="true" />
+        <receiver
+            android:name=".activities.receivers.SnoozeAlarmReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".activities.receivers.StopAlarmReceiver"
+            android:exported="false" />
 
         <activity
             android:name=".activities.activities.ExpenseActivity"
@@ -42,7 +55,6 @@
         <activity
             android:name=".activities.activities.NotesActivity"
             android:exported="false" />
-
         <activity
             android:name=".activities.activities.SignupActivity2"
             android:exported="true">
@@ -52,6 +64,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".activities.receivers.BootReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Top row: checkbox + title -->
+        <!-- Row: checkbox + title + delete icon -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +24,6 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="6dp">
 
-            <!-- Completion Checkbox -->
             <CheckBox
                 android:id="@+id/cbCompleted"
                 android:layout_width="wrap_content"
@@ -32,7 +31,6 @@
                 android:layout_marginEnd="10dp"
                 android:buttonTint="#4C6EF5" />
 
-            <!-- Task Title -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
@@ -43,6 +41,16 @@
                 android:textColor="#1A1A2E"
                 android:ellipsize="end"
                 android:maxLines="1" />
+
+            <!-- Delete icon button (top-right) -->
+            <ImageButton
+                android:id="@+id/btnDeleteTask"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="#FF5252"
+                android:contentDescription="Delete task" />
         </LinearLayout>
 
         <!-- Description -->
@@ -66,9 +74,9 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginStart="34dp"
+            android:layout_marginBottom="8dp"
             android:visibility="gone">
 
-            <!-- Bell icon (text emoji as lightweight alternative) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,11 +98,11 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#F0F0F0"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="34dp" />
 
-        <!-- Complete Task Button -->
+        <!-- Mark Complete button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMarkDone"
             android:layout_width="match_parent"

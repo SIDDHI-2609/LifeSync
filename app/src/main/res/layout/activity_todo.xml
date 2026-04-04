@@ -1,77 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="0dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E1F9F0">
+    android:orientation="vertical"
+    android:background="#F5F6FA">
 
-    <androidx.appcompat.widget.Toolbar
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="LifeSync"
-        android:background="#50A886"
-        android:elevation="4dp">
-    </androidx.appcompat.widget.Toolbar>
+        android:background="#1A1A2E"
+        app:title="To-Do Reminder"
+        app:titleTextColor="#FFFFFF" />
 
+    <!-- Add Task Card -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_margin="35dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         app:cardCornerRadius="18dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="#B2EBD0">
-
-
-        <EditText
-            android:id="@+id/etTask"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/edittext_glow"
-            android:hint="Enter task"
-            android:padding="10dp" />
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="#FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="161dp"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <Button
-                android:id="@+id/btnTime"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="34dp"
-                android:layout_marginTop="95dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="#50A886"
-                android:text="Pick Time"
+                android:text="New Task"
+                android:textSize="17sp"
                 android:textStyle="bold"
-                android:translationZ="4dp"
-                app:cornerRadius="15dp" />
+                android:textColor="#1A1A2E"
+                android:layout_marginBottom="12dp" />
 
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="38dp"
-                android:layout_marginTop="95dp"
-                android:layout_marginEnd="5dp"
-                android:backgroundTint="#50A886"
+                android:hint="Task title *"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTaskTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description (optional)"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="12dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTaskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Alarm row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSetAlarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:text="🔔 Set Alarm"
+                    android:textSize="13sp"
+                    android:layout_marginEnd="10dp"
+                    app:cornerRadius="8dp"
+                    app:backgroundTint="#4C6EF5"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/tvAlarmTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No alarm"
+                    android:textSize="12sp"
+                    android:textColor="#888888"
+                    android:textStyle="italic" />
+
+                <ImageButton
+                    android:id="@+id/btnCancelAlarm"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:visibility="gone"
+                    android:contentDescription="Clear alarm" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveTask"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:text="Add Task"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:translationZ="4dp"
-                app:cornerRadius="15dp" />
+                app:cornerRadius="12dp"
+                app:backgroundTint="#1A1A2E"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <!-- Task list header: count + Delete All -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="20dp" />
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvTaskCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0 tasks"
+            android:textSize="13sp"
+            android:textColor="#888888" />
+
+        <!-- Delete All button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDeleteAll"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="🗑 Delete All"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:cornerRadius="8dp"
+            app:backgroundTint="#FF5252"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- Empty state -->
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No tasks yet. Add one above!"
+        android:textSize="14sp"
+        android:textColor="#BBBBBB"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="visible" />
+
+    <!-- Task RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTasks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        android:visibility="gone" />
 
 </LinearLayout>
