@@ -34,6 +34,9 @@ android {
     packagingOptions {
         exclude 'META-INF/*'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 configurations.all {
     exclude group: 'org.jetbrains', module: 'annotations'

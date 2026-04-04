@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F6FA"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     android:padding="12dp">
 
     <!-- 🔥 Header -->
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="Expenses"
         android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textStyle="bold" />
 
     <!-- 🔥 Top Cards -->
     <HorizontalScrollView
@@ -24,9 +23,9 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <!-- Card 1 -->
             <androidx.cardview.widget.CardView
@@ -37,11 +36,11 @@
                 card_view:cardElevation="6dp">
 
                 <LinearLayout
-                    android:padding="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/bg_card_blue"
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -50,13 +49,13 @@
                         android:textColor="@color/black" />
 
                     <TextView
-                        android:text="₹0.00"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="8dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="₹0.00"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -69,11 +68,11 @@
                 card_view:cardElevation="6dp">
 
                 <LinearLayout
-                    android:padding="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/bg_card_purple"
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -82,13 +81,13 @@
                         android:textColor="@color/black" />
 
                     <TextView
-                        android:text="₹0.00"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="8dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="₹0.00"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -100,11 +99,11 @@
                 card_view:cardElevation="6dp">
 
                 <LinearLayout
-                    android:padding="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/bg_card_indigo"
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -113,13 +112,13 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
-                        android:text="₹0.00"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="8dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="₹0.00"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -135,26 +134,26 @@
         card_view:cardElevation="4dp">
 
         <LinearLayout
-            android:padding="16dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:text="Spending Overview"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Spending Overview"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <!-- Placeholder for chart -->
             <TextView
-                android:text="(Chart will go here)"
-                android:gravity="center"
-                android:textColor="#888"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="(Chart will go here)"
+                android:textColor="#888" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -168,23 +167,23 @@
         card_view:cardElevation="4dp">
 
         <LinearLayout
-            android:padding="16dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:text="All Expenses"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="All Expenses"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:layout_height="200dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
