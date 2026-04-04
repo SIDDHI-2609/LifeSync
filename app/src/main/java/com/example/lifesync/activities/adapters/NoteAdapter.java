@@ -10,21 +10,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lifesync.R;
-import com.example.lifesync.activities.models.Note;
+import com.example.lifesync.activities.models.NoteEntity;
 
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
-    private List<Note> notes;
+    private List<NoteEntity> notes;
     private OnDeleteClickListener listener;
     private OnEditClickListener editListener;
 
 
-    public NoteAdapter(List<Note> notes, OnDeleteClickListener listener, OnEditClickListener editListener) {
+    public NoteAdapter(List<NoteEntity> notes, OnDeleteClickListener listener, OnEditClickListener editListener) {
         this.notes = notes;
         this.listener = listener;
         this.editListener = editListener;
+    }
+
+    public void submitList(List<NoteEntity> notes) {
+        this.notes = notes;
+        notifyDataSetChanged();
     }
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -49,7 +54,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        Note note = notes.get(position);
+        NoteEntity note = notes.get(position);
         holder.title.setText(note.title);
         holder.content.setText(note.content);
 
@@ -72,10 +77,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
     public interface OnDeleteClickListener {
-        void onDeleteClick(Note note);
+        void onDeleteClick(NoteEntity note);
     }
 
     public interface OnEditClickListener {
-        void onEditClick(Note note);
+        void onEditClick(NoteEntity note);
     }
 }

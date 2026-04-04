@@ -6,11 +6,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -18,16 +13,19 @@ import androidx.room.Room;
 import com.example.lifesync.R;
 import com.example.lifesync.activities.adapters.ExpenseAdapter;
 import com.example.lifesync.activities.database.AppDatabase;
-import com.example.lifesync.activities.models.Expense;
+import com.example.lifesync.activities.models.ExpenseEntity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 public class ExpenseActivity extends BaseActivity {
 
     AppDatabase db ;
     RecyclerView recyclerView;
     TextView tvTotal, tvMonthly;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +33,18 @@ public class ExpenseActivity extends BaseActivity {
         setContentView(R.layout.activity_expense);
         setupToolbar();
 
+        // Get Current User ID from Firebase
+        userId = FirebaseAuth.getInstance().getUid();
+        if (userId == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        // Initialize Database
         db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "lifesync-db").allowMainThreadQueries().build();
+                AppDatabase.class, "smartassistant_db").allowMainThreadQueries().build();
+
         EditText etTitle = findViewById(R.id.etTitle);
         EditText etAmount = findViewById(R.id.etAmount);
         EditText etCategory = findViewById(R.id.etCategory);
@@ -45,51 +53,77 @@ public class ExpenseActivity extends BaseActivity {
         Button btnAdd = findViewById(R.id.btnAdd);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         loadExpenses();
+        loadAnalytics();
 
         btnAdd.setOnClickListener(v -> {
-            Expense expense = new Expense();
-            expense.title = etTitle.getText().toString();
-            expense.amount = Double.parseDouble(etAmount.getText().toString());
-            expense.date = System.currentTimeMillis();
-            expense.category = etCategory.getText().toString();
+            String title = etTitle.getText().toString().trim();
+            String amountStr = etAmount.getText().toString().trim();
+            String category = etCategory.getText().toString().trim();
 
-            db.expenseDao().insert(expense);
+            if (title.isEmpty() || amountStr.isEmpty() || category.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            Toast.makeText(this, "Expense Saved", Toast.LENGTH_SHORT).show();
+            try {
+                double amount = Double.parseDouble(amountStr);
+                ExpenseEntity expense = new ExpenseEntity(
+                        UUID.randomUUID().toString(),
+                        userId,
+                        title,
+                        category,
+                        amount,
+                        "", // note
+                        System.currentTimeMillis()
+                );
 
-            etTitle.setText("");
-            etAmount.setText("");
-            etCategory.setText("");
-            loadExpenses();
-            loadAnalytics();
+                db.expenseDao().insert(expense);
+
+                Toast.makeText(this, "Expense Saved", Toast.LENGTH_SHORT).show();
+
+                etTitle.setText("");
+                etAmount.setText("");
+                etCategory.setText("");
+                loadExpenses();
+                loadAnalytics();
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid amount", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
+
     private void loadExpenses() {
-        List<Expense> expenses = db.expenseDao().getAllExpenses();
+        // Use the sync method and pass userId
+        List<ExpenseEntity> expenses = db.expenseDao().getAllExpensesSync(userId);
         ExpenseAdapter adapter = new ExpenseAdapter(expenses, this::deleteExpense);
         recyclerView.setAdapter(adapter);
     }
-    private void deleteExpense(Expense expense) {
+
+    private void deleteExpense(ExpenseEntity expense) {
         db.expenseDao().delete(expense);
         loadExpenses();
         loadAnalytics();
     }
+
     private void loadAnalytics() {
-        List<Expense> expenses = db.expenseDao().getAllExpenses();
-        double total = db.expenseDao().getTotalExpenses();
+        // Pass userId to Dao methods
+        double total = db.expenseDao().getTotalExpenses(userId);
         long startOfMonth = getStartOfMonth();
-        double monthly = db.expenseDao().getMonthlyExpenses(startOfMonth);
+        double monthly = db.expenseDao().getMonthlyExpenses(userId, startOfMonth);
         tvTotal.setText("Total: ₹" + total);
         tvMonthly.setText("Monthly: ₹" + monthly);
     }
+
     private long getStartOfMonth() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
         return cal.getTimeInMillis();
     }
 }

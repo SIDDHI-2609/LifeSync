@@ -124,7 +124,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TaskViewHolder
         TextView     tvTitle, tvDescription, tvAlarmTime;
         View         layoutAlarmRow;
         MaterialButton btnMarkDone;
-        ImageButton  btnDeleteTask;   // NEW
+        ImageButton  btnDeleteTask;
 
         TaskViewHolder(@NonNull View v) {
             super(v);

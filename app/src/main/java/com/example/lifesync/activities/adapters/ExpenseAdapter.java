@@ -9,19 +9,19 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lifesync.R;
-import com.example.lifesync.activities.models.Expense;
+import com.example.lifesync.activities.models.ExpenseEntity;
 
 import java.util.List;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
-    List<Expense> expenses;
+    List<ExpenseEntity> expenses;
     OnDeleteClickListener listener;
 
     public interface OnDeleteClickListener {
-        void onDeleteClick(Expense expense);
+        void onDeleteClick(ExpenseEntity expense);
     }
 
-    public ExpenseAdapter(List<Expense> expenses, OnDeleteClickListener listener) {
+    public ExpenseAdapter(List<ExpenseEntity> expenses, OnDeleteClickListener listener) {
         this.expenses = expenses;
         this.listener = listener;
     }
@@ -45,7 +45,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Expense expense = expenses.get(position);
+        ExpenseEntity expense = expenses.get(position);
         holder.title.setText(expense.title);
         holder.amount.setText("₹" + expense.amount);
         holder.btnDelete.setOnClickListener(v -> {

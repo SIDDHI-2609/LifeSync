@@ -5,27 +5,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import com.example.lifesync.R;
 import com.example.lifesync.activities.adapters.NoteAdapter;
 import com.example.lifesync.activities.database.AppDatabase;
-import com.example.lifesync.activities.models.Note;
+import com.example.lifesync.activities.models.NoteEntity;
+import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import repository.NoteRepository;
 
 public class NotesActivity extends BaseActivity {
 
     private AppDatabase db;
     private RecyclerView recyclerView;
+    private NoteRepository noteRepo;
+    private NoteAdapter adapter;
 
-    Note selectedNote = null;
+    NoteEntity selectedNote = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        noteRepo = new NoteRepository(this);
         setupToolbar();
 
         //Database
@@ -39,56 +45,51 @@ public class NotesActivity extends BaseActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        loadNotes();
+
+        adapter = new NoteAdapter(new ArrayList<>(), this::deleteNote, this::editNote);
+        recyclerView.setAdapter(adapter);
+
+        noteRepo.getAllNotes().observe(this, notesList -> {
+            if (notesList != null) {
+                adapter.submitList(notesList);
+            }
+        });
 
         //Button click
         btnAdd.setOnClickListener(v -> {
             String title = etTitle.getText().toString();
             String content = etContent.getText().toString();
 
+            if (title.isEmpty() || content.isEmpty()) {
+                Toast.makeText(this, "Please enter title and content", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             //Add notes
             if(selectedNote==null) {
-                Note note = new Note();
-                note.title = title;
-                note.content = content;
-
-                db.noteDao().insert(note);
-
+                noteRepo.addNote(title, content);
                 Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
             }
             else {
                 //update notes
                 selectedNote.title = title;
                 selectedNote.content = content;
-
-                db.noteDao().update(selectedNote);
+                noteRepo.updateNote(selectedNote);
 
                 Toast.makeText(this, "Note Updated", Toast.LENGTH_SHORT).show();
                 selectedNote = null;
                 btnAdd.setText("Add");
-
             }
             etTitle.setText("");
             etContent.setText("");
-            loadNotes();
         });
     }
 
-    private void loadNotes() {
-        if (db != null) {
-            List<Note> notes = db.noteDao().getAllNotes();
-            NoteAdapter adapter = new NoteAdapter(notes, this::deleteNote, this::editNote);
-            recyclerView.setAdapter(adapter);
-        }
+    private void deleteNote(NoteEntity note) {
+        noteRepo.deleteNote(note);
     }
 
-    private void deleteNote(Note note) {
-        if (db != null) {
-            db.noteDao().delete(note);
-            loadNotes();
-        }
-    }
-    private void editNote(Note note) {
+    private void editNote(NoteEntity note) {
         selectedNote = note;
 
         EditText etTitle = findViewById(R.id.etTitle);

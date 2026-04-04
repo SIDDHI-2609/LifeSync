@@ -27,8 +27,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     packagingOptions {
         exclude 'META-INF/*'
@@ -57,4 +57,22 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-auth'
+
+    // ── Room (local SQLite) ──────────────────────────────────────────────
+    def room_version = "2.6.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // ── Firebase ─────────────────────────────────────────────────────────
+    implementation platform('com.google.firebase:firebase-bom:33.1.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+
+    // ── LiveData + ViewModel ─────────────────────────────────────────────
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.7.0"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.7.0"
+
+    // ── MPAndroidChart (pie chart + bar graph for Dashboard) ─────────────
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }
