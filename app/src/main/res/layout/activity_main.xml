@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F8">
+
+    <!-- ══════════════════════════════════════════════════════
+         TOP APP BAR
+    ══════════════════════════════════════════════════════ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="#1B1F3B"
+            android:paddingStart="20dp"
+            android:paddingEnd="12dp">
+
+            <!-- App name -->
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LifeSync"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:letterSpacing="0.03" />
+
+            <!-- Profile icon pushed to the right -->
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_gravity="end"
+                android:src="@android:drawable/ic_menu_myplaces"
+                android:background="@drawable/circle_profile_bg"
+                android:padding="6dp"
+                android:tint="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Profile menu" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Greeting strip under toolbar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1B1F3B"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="2dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Good morning 👋"
+                android:textSize="13sp"
+                android:textColor="#8A9FD8" />
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome back!"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ══════════════════════════════════════════════════════
+         SCROLLABLE CONTENT
+    ══════════════════════════════════════════════════════ -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="20dp">
+
+            <!-- ─────────────────────────────────────────────
+                 SECTION 1 — EXPENSE TRACKER
+            ───────────────────────────────────────────── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardExpense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Header row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="14dp">
+
+                        <!-- Icon badge -->
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="💸"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:background="@drawable/badge_bg_blue"
+                            android:layout_marginEnd="12dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Expense Tracker"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#1B1F3B" />
+
+                            <TextView
+                                android:id="@+id/tvExpenseSummary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tap to view all expenses"
+                                android:textSize="12sp"
+                                android:textColor="#8E9BB5" />
+                        </LinearLayout>
+
+                        <!-- Arrow -->
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/arrow_up_float"
+                            android:rotation="90"
+                            android:tint="#8E9BB5"
+                            android:contentDescription="Go" />
+                    </LinearLayout>
+
+                    <!-- Total amount -->
+                    <TextView
+                        android:id="@+id/tvTotalExpense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹0.00"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="#1B1F3B"
+                        android:layout_marginBottom="14dp" />
+
+                    <!-- Bar Chart -->
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp" />
+
+                    <!-- Category chips row -->
+                    <LinearLayout
+                        android:id="@+id/layoutCategoryChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:id="@+id/chipFood"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="🍔 Food"
+                            android:textSize="11sp"
+                            android:textColor="#4C6EF5"
+                            android:background="@drawable/chip_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:gravity="center"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:id="@+id/chipTransport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="🚗 Transport"
+                            android:textSize="11sp"
+                            android:textColor="#E67E22"
+                            android:background="@drawable/chip_bg_orange"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:gravity="center"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:id="@+id/chipBills"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="🧾 Bills"
+                            android:textSize="11sp"
+                            android:textColor="#27AE60"
+                            android:background="@drawable/chip_bg_green"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:gravity="center" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ─────────────────────────────────────────────
+                 SECTION 2 — NOTES
+            ───────────────────────────────────────────── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Header row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="14dp">
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="📝"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:background="@drawable/badge_bg_yellow"
+                            android:layout_marginEnd="12dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Notes"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#1B1F3B" />
+
+                            <TextView
+                                android:id="@+id/tvNotesCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 notes"
+                                android:textSize="12sp"
+                                android:textColor="#8E9BB5" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/arrow_up_float"
+                            android:rotation="90"
+                            android:tint="#8E9BB5"
+                            android:contentDescription="Go" />
+                    </LinearLayout>
+
+                    <!-- Note preview items (3 lines shown) -->
+                    <LinearLayout
+                        android:id="@+id/layoutNotePreviews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Empty state (shown when no notes) -->
+                        <TextView
+                            android:id="@+id/tvNotesEmpty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No notes yet. Tap to add your first note."
+                            android:textSize="13sp"
+                            android:textColor="#BBBBBB"
+                            android:gravity="center"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:visibility="visible" />
+
+                        <!-- Preview rows — shown dynamically from Java -->
+                        <LinearLayout
+                            android:id="@+id/noteRow1"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/note_row_bg"
+                            android:layout_marginBottom="6dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:visibility="gone">
+                            <TextView android:layout_width="8dp" android:layout_height="8dp"
+                                android:background="@drawable/dot_blue" android:layout_marginEnd="10dp"/>
+                            <TextView android:id="@+id/tvNote1Title"
+                                android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="13sp" android:textColor="#2C3E6B"
+                                android:textStyle="bold" android:maxLines="1" android:ellipsize="end"/>
+                            <TextView android:id="@+id/tvNote1Preview"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:textSize="11sp" android:textColor="#AAAAAA"
+                                android:maxLines="1" android:ellipsize="end"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/noteRow2"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/note_row_bg"
+                            android:layout_marginBottom="6dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:visibility="gone">
+                            <TextView android:layout_width="8dp" android:layout_height="8dp"
+                                android:background="@drawable/dot_yellow" android:layout_marginEnd="10dp"/>
+                            <TextView android:id="@+id/tvNote2Title"
+                                android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="13sp" android:textColor="#2C3E6B"
+                                android:textStyle="bold" android:maxLines="1" android:ellipsize="end"/>
+                            <TextView android:id="@+id/tvNote2Preview"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:textSize="11sp" android:textColor="#AAAAAA"
+                                android:maxLines="1" android:ellipsize="end"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/noteRow3"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/note_row_bg"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:visibility="gone">
+                            <TextView android:layout_width="8dp" android:layout_height="8dp"
+                                android:background="@drawable/dot_green" android:layout_marginEnd="10dp"/>
+                            <TextView android:id="@+id/tvNote3Title"
+                                android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="13sp" android:textColor="#2C3E6B"
+                                android:textStyle="bold" android:maxLines="1" android:ellipsize="end"/>
+                            <TextView android:id="@+id/tvNote3Preview"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:textSize="11sp" android:textColor="#AAAAAA"
+                                android:maxLines="1" android:ellipsize="end"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ─────────────────────────────────────────────
+                 SECTION 3 — TO DO TASKS
+            ───────────────────────────────────────────── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardTodo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Header row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="14dp">
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="✅"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:background="@drawable/badge_bg_green"
+                            android:layout_marginEnd="12dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="To Do Tasks"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#1B1F3B" />
+
+                            <TextView
+                                android:id="@+id/tvTodoSummary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 pending · 0 done"
+                                android:textSize="12sp"
+                                android:textColor="#8E9BB5" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/arrow_up_float"
+                            android:rotation="90"
+                            android:tint="#8E9BB5"
+                            android:contentDescription="Go" />
+                    </LinearLayout>
+
+                    <!-- Progress bar for tasks completion -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COMPLETION"
+                        android:textSize="10sp"
+                        android:textColor="#AAAAAA"
+                        android:letterSpacing="0.12"
+                        android:layout_marginBottom="6dp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressTasks"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:progress="0"
+                        android:max="100"
+                        android:progressDrawable="@drawable/progress_bar_custom"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Upcoming alarm task preview -->
+                    <LinearLayout
+                        android:id="@+id/layoutUpcomingTask"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/upcoming_task_bg"
+                        android:padding="12dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⏰"
+                            android:textSize="16sp"
+                            android:layout_marginEnd="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvUpcomingTaskTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Next task"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="#1B1F3B"
+                                android:maxLines="1"
+                                android:ellipsize="end" />
+
+                            <TextView
+                                android:id="@+id/tvUpcomingTaskTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="#4C6EF5" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvTodoEmpty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No tasks yet. Tap to add your first task."
+                        android:textSize="13sp"
+                        android:textColor="#BBBBBB"
+                        android:gravity="center"
+                        android:paddingTop="8dp"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ══════════════════════════════════════════════════════
+         FAB — Quick add
+    ══════════════════════════════════════════════════════ -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#1B1F3B"
+        app:tint="#FFFFFF"
+        app:elevation="8dp"
+        android:contentDescription="Quick add" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

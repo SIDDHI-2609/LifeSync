@@ -122,7 +122,7 @@ public class SignupActivity2 extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            startActivity(new Intent(SignupActivity2.this, DashboardActivity.class));
+            startActivity(new Intent(SignupActivity2.this, MainActivity.class));
             finish();
         }
     }
