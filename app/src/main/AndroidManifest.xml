@@ -33,7 +33,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:turnScreenOn="true" />
         <activity
-            android:name=".activities.activities.LoginActivity"
+            android:name=".activities.activities.SignupActivity"
             android:exported="false" />
         <activity
             android:name=".activities.activities.DashboardActivity"
@@ -59,7 +59,7 @@
             android:name=".activities.activities.NotesActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.activities.SignupActivity"
+            android:name=".activities.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
