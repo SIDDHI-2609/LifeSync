@@ -59,7 +59,7 @@
             android:name=".activities.activities.NotesActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.activities.SignupActivity2"
+            android:name=".activities.activities.SignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

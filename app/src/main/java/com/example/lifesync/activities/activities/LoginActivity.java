@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignin.setOnClickListener(v -> loginUser());
         //Signup button
         tvSignup.setOnClickListener(v -> {
-            Intent i = new Intent(LoginActivity.this, SignupActivity2.class);
+            Intent i = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(i);
             finish();
         });

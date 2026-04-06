@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_signup.xml
+    3-step signup screen for LifeSync
+    Steps:  1 → Personal Details (Name + Mobile)
+            2 → Contact Info   (Email)
+            3 → Security       (Password + Confirm)
+
+    Required drawables (create in res/drawable/):
+        • edittext_rounded.xml   — outlined rounded input background
+        • btn_primary.xml        — dark navy filled button
+        • btn_outline.xml        — outlined back button
+        • strength_bar_bg.xml    — grey pill for password strength track
+        • step_active.xml        — filled navy circle for active/done step
+        • step_inactive.xml      — grey outlined circle for future step
+
+    Colors used from your existing palette:
+        #1B1F3B  — navy (primary brand)
+        #8A9FD8  — muted blue (subtitles)
+        #F0F2F8  — page background
+        #FFFFFF  — card background
+        #E53935  — error red
+        #4C6EF5  — info blue
+        #1D9E75  — success green
+-->
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F8"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <!-- ══════════════════════════════════════════════
+             CARD CONTAINER
+        ══════════════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- ── DARK HEADER ─────────────────────────── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#1B1F3B"
+                    android:gravity="center"
+                    android:paddingTop="32dp"
+                    android:paddingBottom="24dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp">
+
+                    <!-- Avatar circle -->
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@android:drawable/ic_menu_myplaces"
+                        android:background="@drawable/circle_profile_bg"
+                        android:padding="12dp"
+                        android:tint="#8A9FD8"
+                        android:layout_marginBottom="14dp"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Create your account"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LifeSync — your smart assistant"
+                        android:textSize="13sp"
+                        android:textColor="#8A9FD8" />
+                </LinearLayout>
+
+                <!-- ── BODY ────────────────────────────────── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="28dp">
+
+                    <!-- ── STEP INDICATOR ─────────────────── -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginBottom="20dp">
+
+                        <!-- Step 1 dot -->
+                        <TextView
+                            android:id="@+id/dot1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:text="1"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:gravity="center"
+                            android:background="@drawable/step_active" />
+
+                        <!-- Line 1 -->
+                        <View
+                            android:id="@+id/line1"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp" />
+
+                        <!-- Step 2 dot -->
+                        <TextView
+                            android:id="@+id/dot2"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:text="2"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#AAAAAA"
+                            android:gravity="center"
+                            android:background="@drawable/step_inactive" />
+
+                        <!-- Line 2 -->
+                        <View
+                            android:id="@+id/line2"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp" />
+
+                        <!-- Step 3 dot -->
+                        <TextView
+                            android:id="@+id/dot3"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:text="3"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#AAAAAA"
+                            android:gravity="center"
+                            android:background="@drawable/step_inactive" />
+                    </LinearLayout>
+
+                    <!-- Step label -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:id="@+id/tvStepTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Personal details"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#1B1F3B" />
+
+                        <TextView
+                            android:id="@+id/tvStepSub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Step 1 of 3"
+                            android:textSize="12sp"
+                            android:textColor="#8E9BB5"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════════
+                         STEP 1 — Personal Details
+                    ══════════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutStep1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <!-- Name field -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Full name"
+                            android:textSize="12sp"
+                            android:textColor="#555555"
+                            android:layout_marginBottom="6dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@android:drawable/ic_menu_myplaces"
+                            app:startIconTint="#8E9BB5"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeColor="#CCCCCC"
+                            android:layout_marginBottom="4dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Your full name"
+                                android:inputType="textPersonName|textCapWords"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/errName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Please enter your name"
+                            android:textSize="11sp"
+                            android:textColor="#E53935"
+                            android:layout_marginBottom="12dp"
+                            android:visibility="gone" />
+
+                        <!-- Mobile field -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile number"
+                            android:textSize="12sp"
+                            android:textColor="#555555"
+                            android:layout_marginBottom="6dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@android:drawable/ic_menu_call"
+                            app:startIconTint="#8E9BB5"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeColor="#CCCCCC"
+                            android:layout_marginBottom="4dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etMobile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="10-digit number"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/errMobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enter a valid 10-digit number"
+                            android:textSize="11sp"
+                            android:textColor="#E53935"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════════
+                         STEP 2 — Contact Info
+                    ══════════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutStep2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email address"
+                            android:textSize="12sp"
+                            android:textColor="#555555"
+                            android:layout_marginBottom="6dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@android:drawable/ic_dialog_email"
+                            app:startIconTint="#8E9BB5"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeColor="#CCCCCC"
+                            android:layout_marginBottom="4dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="you@example.com"
+                                android:inputType="textEmailAddress"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/errEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enter a valid email address"
+                            android:textSize="11sp"
+                            android:textColor="#E53935"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════════
+                         STEP 3 — Security
+                    ══════════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutStep3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!-- Password field -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Password"
+                            android:textSize="12sp"
+                            android:textColor="#555555"
+                            android:layout_marginBottom="6dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                            app:startIconTint="#8E9BB5"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="#8E9BB5"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeColor="#CCCCCC"
+                            android:layout_marginBottom="4dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Min 8 characters"
+                                android:inputType="textPassword"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/errPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Password must be at least 8 characters"
+                            android:textSize="11sp"
+                            android:textColor="#E53935"
+                            android:visibility="gone" />
+
+                        <!-- Password strength bar -->
+                        <LinearLayout
+                            android:id="@+id/layoutStrength"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone">
+
+                            <ProgressBar
+                                android:id="@+id/progressStrength"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="6dp"
+                                android:max="4"
+                                android:progress="0"
+                                android:progressDrawable="@drawable/progress_bar_custom" />
+
+                            <TextView
+                                android:id="@+id/tvStrengthLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="11sp"
+                                android:textColor="#8E9BB5"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+
+                        <!-- Confirm password -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Confirm password"
+                            android:textSize="12sp"
+                            android:textColor="#555555"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="6dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                            app:startIconTint="#8E9BB5"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="#8E9BB5"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeColor="#CCCCCC"
+                            android:layout_marginBottom="4dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etConfirmPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Re-enter your password"
+                                android:inputType="textPassword"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/errConfirm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Passwords do not match"
+                            android:textSize="11sp"
+                            android:textColor="#E53935"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════════
+                         SUCCESS STATE
+                    ══════════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutSuccess"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:visibility="gone">
+
+                        <!-- Checkmark circle -->
+                        <ImageView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:src="@android:drawable/checkbox_on_background"
+                            android:background="@drawable/badge_bg_green"
+                            android:padding="12dp"
+                            android:tint="#1D9E75"
+                            android:layout_marginBottom="16dp"
+                            android:contentDescription="Success" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Account created!"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#1B1F3B"
+                            android:layout_marginBottom="6dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Welcome to LifeSync."
+                            android:textSize="14sp"
+                            android:textColor="#8E9BB5"
+                            android:layout_marginBottom="24dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnGoToDashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:text="Go to Dashboard"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="14dp"
+                            app:backgroundTint="#1B1F3B"
+                            android:textColor="#FFFFFF" />
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════════
+                         BUTTONS ROW
+                    ══════════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutButtons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="20dp">
+
+                        <!-- Continue / Register button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:text="Continue"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="14dp"
+                            app:backgroundTint="#1B1F3B"
+                            android:textColor="#FFFFFF" />
+
+                        <!-- Back button (hidden on step 1) -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnBack"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:text="Back"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            app:cornerRadius="14dp"
+                            app:backgroundTint="#F0F2F8"
+                            android:textColor="#555555"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <!-- ── LOGIN LINK ──────────────────────── -->
+                    <LinearLayout
+                        android:id="@+id/layoutLoginLink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:paddingTop="16dp">
+
+                        <!-- Top border line drawn via background on a View above -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Already have an account?  "
+                            android:textSize="13sp"
+                            android:textColor="#8E9BB5" />
+
+                        <TextView
+                            android:id="@+id/tvLogin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sign in"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#1B1F3B"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!-- end body -->
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- end card -->
+
+    </LinearLayout>
+</ScrollView>
