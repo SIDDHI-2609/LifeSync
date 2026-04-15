@@ -64,8 +64,8 @@ public class DashboardActivity extends AppCompatActivity {
         viewModel.categoryTotals.observe(this, totals -> {
             if (totals == null || totals.isEmpty()) return;
             List<PieEntry> entries = new ArrayList<>();
-            for (ExpenseDao.CategoryTotal ct : totals) {
-                entries.add(new PieEntry((float) ct.total, ct.category));
+            for (ExpenseDao.TitleTotal tt : totals) {
+                entries.add(new PieEntry((float) tt.total, tt.title));
             }
             PieDataSet dataSet = new PieDataSet(entries, "");
             dataSet.setColors(chartColors());

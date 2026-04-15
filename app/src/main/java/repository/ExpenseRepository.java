@@ -1,4 +1,5 @@
 package repository;
+
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
@@ -35,36 +36,74 @@ public class ExpenseRepository {
         return dao.getAllExpenses(userId);
     }
 
-    public LiveData<List<ExpenseEntity>> getByCategory(String category) {
-        return dao.getExpensesByCategory(userId, category);
-    }
-
     public LiveData<List<ExpenseEntity>> getByDateRange(long from, long to) {
         return dao.getExpensesByDateRange(userId, from, to);
     }
 
-    /** For Pie Chart — total per category */
-    public LiveData<List<ExpenseDao.CategoryTotal>> getTotalByCategory() {
-        return dao.getTotalByCategory(userId);
+    // ── Analytics: Title-based (Pie Chart) ────────────────────────────────────
+
+    /** For Pie Chart — total per title (all time) */
+    public LiveData<List<ExpenseDao.TitleTotal>> getTotalByTitle() {
+        return dao.getTotalByTitle(userId);
     }
 
-    /** For Bar Chart — daily totals last 30 days */
-    public LiveData<List<ExpenseDao.DailyTotal>> getDailyTotals() {
-        long thirtyDaysAgo = System.currentTimeMillis() - (30L * 24 * 60 * 60 * 1000);
-        return dao.getDailyTotals(userId, thirtyDaysAgo);
+    /** For Pie Chart — total per title within a date range */
+    public LiveData<List<ExpenseDao.TitleTotal>> getTotalByTitleInRange(long from, long to) {
+        return dao.getTotalByTitleInRange(userId, from, to);
     }
+
+    // ── Analytics: Bar Chart ──────────────────────────────────────────────────
+
+    /** Daily totals for bar chart */
+    public LiveData<List<ExpenseDao.DailyTotal>> getDailyTotals(long since) {
+        return dao.getDailyTotals(userId, since);
+    }
+
+    /** Daily totals within range */
+    public LiveData<List<ExpenseDao.DailyTotal>> getDailyTotalsInRange(long from, long to) {
+        return dao.getDailyTotalsInRange(userId, from, to);
+    }
+
+    /** Monthly totals for year view */
+    public LiveData<List<ExpenseDao.DailyTotal>> getMonthlyTotals(long from, long to) {
+        return dao.getMonthlyTotals(userId, from, to);
+    }
+
+    // ── Totals ────────────────────────────────────────────────────────────────
 
     public LiveData<Double> getTotalAmount() {
         return dao.getTotalAmount(userId);
     }
 
+    public LiveData<Double> getTotalAmountInRange(long from, long to) {
+        return dao.getTotalAmountInRange(userId, from, to);
+    }
+
+    public LiveData<Integer> getExpenseCountInRange(long from, long to) {
+        return dao.getExpenseCountInRange(userId, from, to);
+    }
+
     // ── Write ─────────────────────────────────────────────────────────────────
 
+    /** Category defaults to "General" since user only provides title */
+    public void addExpense(String title, double amount, String note, long date) {
+        ExpenseEntity expense = new ExpenseEntity(
+                UUID.randomUUID().toString(),
+                userId, title, "General", amount, note, date);
+        executor.execute(() -> {
+            dao.insert(expense);
+            sync.pushExpense(expense);
+        });
+    }
+
+    /** Kept for backward compatibility */
     public void addExpense(String title, String category, double amount,
                            String note, long date) {
         ExpenseEntity expense = new ExpenseEntity(
                 UUID.randomUUID().toString(),
-                userId, title, category, amount, note, date);
+                userId, title,
+                (category != null && !category.isEmpty()) ? category : "General",
+                amount, note, date);
         executor.execute(() -> {
             dao.insert(expense);
             sync.pushExpense(expense);

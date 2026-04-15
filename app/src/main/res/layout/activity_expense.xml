@@ -22,7 +22,6 @@
             app:title="Expense Tracker"
             app:titleTextColor="#FFFFFF"
             app:subtitleTextColor="#8A9FD8" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- ══ MAIN SCROLL ══════════════════════════════════════════════════════ -->
@@ -48,7 +47,7 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="16dp">
 
-                <!-- Total -->
+                <!-- Total (all time) -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -57,24 +56,30 @@
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
                     app:cardBackgroundColor="#1B1F3B">
-                    <LinearLayout android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="16dp">
-                        <TextView android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="TOTAL SPENT"
-                            android:textSize="10sp" android:letterSpacing="0.1"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.1"
                             android:textColor="#8A9FD8"/>
-                        <TextView android:id="@+id/tvTotalAmount"
+                        <TextView
+                            android:id="@+id/tvTotalAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹0.00"
-                            android:textSize="22sp" android:textStyle="bold"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
                             android:textColor="#FFFFFF"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- This month -->
+                <!-- Period total (dynamic) -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -82,30 +87,108 @@
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
                     app:cardBackgroundColor="#FFFFFF">
-                    <LinearLayout android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="16dp">
-                        <TextView android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:id="@+id/tvPeriodLabel"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="THIS MONTH"
-                            android:textSize="10sp" android:letterSpacing="0.1"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.1"
                             android:textColor="#8E9BB5"/>
-                        <TextView android:id="@+id/tvMonthAmount"
+                        <TextView
+                            android:id="@+id/tvPeriodAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹0.00"
-                            android:textSize="22sp" android:textStyle="bold"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
                             android:textColor="#1B1F3B"/>
-                        <TextView android:id="@+id/tvMonthCount"
+                        <TextView
+                            android:id="@+id/tvPeriodCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0 expenses"
-                            android:textSize="11sp" android:textColor="#AAAAAA"/>
+                            android:textSize="11sp"
+                            android:textColor="#AAAAAA"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-            <!-- ── PIE CHART CARD ────────────────────────────────────────── -->
+            <!-- ── TIME FILTER TABS ─────────────────────────────────────── -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tabDay"
+                        android:layout_width="0dp"
+                        android:layout_height="38dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="Day"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/chip_unselected"
+                        android:textColor="#555555"/>
+
+                    <TextView
+                        android:id="@+id/tabWeek"
+                        android:layout_width="0dp"
+                        android:layout_height="38dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="Week"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/chip_unselected"
+                        android:textColor="#555555"/>
+
+                    <TextView
+                        android:id="@+id/tabMonth"
+                        android:layout_width="0dp"
+                        android:layout_height="38dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="Month"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/chip_selected"
+                        android:textColor="#FFFFFF"/>
+
+                    <TextView
+                        android:id="@+id/tabYear"
+                        android:layout_width="0dp"
+                        android:layout_height="38dp"
+                        android:layout_weight="1"
+                        android:text="Year"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/chip_unselected"
+                        android:textColor="#555555"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ── PIE CHART CARD (Title-based) ──────────────────────────── -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,23 +197,30 @@
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#FFFFFF">
 
-                <LinearLayout android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:padding="20dp">
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                    <TextView android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Spending by Category"
-                        android:textSize="15sp" android:textStyle="bold"
+                        android:text="Spending by Title"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
                         android:textColor="#1B1F3B"
                         android:layout_marginBottom="4dp"/>
 
-                    <TextView android:id="@+id/tvPieEmpty"
+                    <TextView
+                        android:id="@+id/tvPieEmpty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Add expenses to see your category breakdown"
-                        android:textSize="12sp" android:textColor="#BBBBBB"
-                        android:gravity="center" android:padding="24dp"
+                        android:text="Add expenses to see your spending breakdown"
+                        android:textSize="12sp"
+                        android:textColor="#BBBBBB"
+                        android:gravity="center"
+                        android:padding="24dp"
                         android:visibility="gone"/>
 
                     <com.github.mikephil.charting.charts.PieChart
@@ -138,7 +228,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="220dp"/>
 
-                    <!-- Legend row -->
+                    <!-- Custom Legend -->
                     <LinearLayout
                         android:id="@+id/legendContainer"
                         android:layout_width="match_parent"
@@ -157,38 +247,45 @@
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#FFFFFF">
 
-                <LinearLayout android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:padding="20dp">
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                    <LinearLayout android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
+                        android:orientation="vertical"
                         android:layout_marginBottom="12dp">
 
-                        <LinearLayout android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/tvBarTitle"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Daily Spending"
-                                android:textSize="15sp" android:textStyle="bold"
-                                android:textColor="#1B1F3B"/>
-                            <TextView android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Last 30 days"
-                                android:textSize="11sp" android:textColor="#AAAAAA"/>
-                        </LinearLayout>
+                            android:text="Daily Spending"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#1B1F3B"/>
+
+                        <TextView
+                            android:id="@+id/tvBarSubtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="This month"
+                            android:textSize="11sp"
+                            android:textColor="#AAAAAA"/>
                     </LinearLayout>
 
-                    <TextView android:id="@+id/tvBarEmpty"
+                    <TextView
+                        android:id="@+id/tvBarEmpty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="No spending data yet"
-                        android:textSize="12sp" android:textColor="#BBBBBB"
-                        android:gravity="center" android:padding="24dp"
+                        android:textSize="12sp"
+                        android:textColor="#BBBBBB"
+                        android:gravity="center"
+                        android:padding="24dp"
                         android:visibility="gone"/>
 
                     <com.github.mikephil.charting.charts.BarChart
@@ -198,77 +295,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- ── FILTER CHIPS ROW ───────────────────────────────────────── -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:id="@+id/chipGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView android:id="@+id/chipAll"
-                        android:layout_width="wrap_content" android:layout_height="34dp"
-                        android:text="All" android:textSize="13sp"
-                        android:gravity="center" android:paddingStart="16dp"
-                        android:paddingEnd="16dp" android:layout_marginEnd="8dp"
-                        android:background="@drawable/chip_selected"
-                        android:textColor="#FFFFFF" android:textStyle="bold"/>
-
-                    <TextView android:id="@+id/chipFood"
-                        android:layout_width="wrap_content" android:layout_height="34dp"
-                        android:text="🍔 Food" android:textSize="13sp"
-                        android:gravity="center" android:paddingStart="16dp"
-                        android:paddingEnd="16dp" android:layout_marginEnd="8dp"
-                        android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
-
-                    <TextView android:id="@+id/chipTransport"
-                        android:layout_width="wrap_content" android:layout_height="34dp"
-                        android:text="🚗 Transport" android:textSize="13sp"
-                        android:gravity="center" android:paddingStart="16dp"
-                        android:paddingEnd="16dp" android:layout_marginEnd="8dp"
-                        android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
-
-                    <TextView android:id="@+id/chipBills"
-                        android:layout_width="wrap_content" android:layout_height="34dp"
-                        android:text="🧾 Bills" android:textSize="13sp"
-                        android:gravity="center" android:paddingStart="16dp"
-                        android:paddingEnd="16dp" android:layout_marginEnd="8dp"
-                        android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
-
-                    <TextView android:id="@+id/chipShopping"
-                        android:layout_width="wrap_content" android:layout_height="34dp"
-                        android:text="🛍 Shopping" android:textSize="13sp"
-                        android:gravity="center" android:paddingStart="16dp"
-                        android:paddingEnd="16dp" android:layout_marginEnd="8dp"
-                        android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
-
-                    <TextView android:id="@+id/chipHealth"
-                        android:layout_width="wrap_content" android:layout_height="34dp"
-                        android:text="💊 Health" android:textSize="13sp"
-                        android:gravity="center" android:paddingStart="16dp"
-                        android:paddingEnd="16dp" android:layout_marginEnd="8dp"
-                        android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
-
-                    <TextView android:id="@+id/chipOther"
-                        android:layout_width="wrap_content" android:layout_height="34dp"
-                        android:text="📦 Other" android:textSize="13sp"
-                        android:gravity="center" android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
-                </LinearLayout>
-            </HorizontalScrollView>
-
             <!-- ── EXPENSE LIST HEADER ────────────────────────────────────── -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -277,11 +303,14 @@
                 android:gravity="center_vertical"
                 android:layout_marginBottom="10dp">
 
-                <TextView android:id="@+id/tvListTitle"
-                    android:layout_width="0dp" android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/tvListTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="All Expenses"
-                    android:textSize="15sp" android:textStyle="bold"
+                    android:text="This Month's Expenses"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     android:textColor="#1B1F3B"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -297,12 +326,15 @@
             </LinearLayout>
 
             <!-- Empty state -->
-            <TextView android:id="@+id/tvEmpty"
+            <TextView
+                android:id="@+id/tvEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="No expenses yet.\nTap ＋ to add your first one."
-                android:textSize="14sp" android:textColor="#BBBBBB"
-                android:gravity="center" android:padding="32dp"
+                android:textSize="14sp"
+                android:textColor="#BBBBBB"
+                android:gravity="center"
+                android:padding="32dp"
                 android:visibility="visible"/>
 
             <!-- ── EXPENSE RECYCLER LIST ───────────────────────────────────── -->

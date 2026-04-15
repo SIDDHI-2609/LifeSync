@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.lifesync.R;
 import com.example.lifesync.activities.models.ExpenseEntity;
 
@@ -28,8 +27,8 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
         void onEdit(ExpenseEntity expense);
     }
 
-    private final Context                context;
-    private       List<ExpenseEntity>    list = new ArrayList<>();
+    private final Context                 context;
+    private       List<ExpenseEntity>     list = new ArrayList<>();
     private final OnExpenseActionListener listener;
     private final SimpleDateFormat        sdf =
             new SimpleDateFormat("dd MMM, yyyy", Locale.getDefault());
@@ -54,12 +53,16 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     public void onBindViewHolder(@NonNull ExpenseViewHolder h, int position) {
         ExpenseEntity e = list.get(position);
 
-        // Category icon
-        h.tvCategoryIcon.setText(emojiFor(e.category));
-        h.tvCategoryIcon.setBackgroundResource(bgFor(e.category));
+        // Title icon — first letter or emoji based on first char
+        String displayTitle = (e.title != null && !e.title.isEmpty()) ? e.title : "Expense";
+        h.tvCategoryIcon.setText(getEmojiForTitle(displayTitle));
+        h.tvCategoryIcon.setBackgroundResource(R.drawable.badge_bg_blue);
 
-        h.tvExpenseTitle.setText(e.title != null ? e.title : "Expense");
-        h.tvCategory.setText(e.category != null ? e.category : "Other");
+        h.tvExpenseTitle.setText(displayTitle);
+
+        // Show the date instead of category
+        h.tvCategory.setText(sdf.format(new Date(e.date)));
+
         h.tvAmount.setText(String.format(Locale.getDefault(), "- ₹%.2f", e.amount));
         h.tvExpenseDate.setText(sdf.format(new Date(e.date)));
 
@@ -72,41 +75,57 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
 
         h.btnDelete.setOnClickListener(v -> {
             int pos = h.getAdapterPosition();
-            if (pos != RecyclerView.NO_ID) listener.onDelete(list.get(pos));
+            if (pos != RecyclerView.NO_POSITION) listener.onDelete(list.get(pos));
         });
 
         h.cardExpense.setOnClickListener(v -> {
             int pos = h.getAdapterPosition();
-            if (pos != RecyclerView.NO_ID) listener.onEdit(list.get(pos));
+            if (pos != RecyclerView.NO_POSITION) listener.onEdit(list.get(pos));
         });
     }
 
     @Override public int getItemCount() { return list.size(); }
 
-    // ── Category helpers ──────────────────────────────────────────────────────
+    /**
+     * Generate a meaningful emoji based on common expense title keywords.
+     * Falls back to first letter of the title.
+     */
+    private String getEmojiForTitle(String title) {
+        if (title == null) return "💰";
+        String lower = title.toLowerCase();
 
-    private String emojiFor(String category) {
-        if (category == null) return "📦";
-        switch (category) {
-            case "Food":      return "🍔";
-            case "Transport": return "🚗";
-            case "Bills":     return "🧾";
-            case "Shopping":  return "🛍";
-            case "Health":    return "💊";
-            default:          return "📦";
-        }
-    }
+        if (lower.contains("food") || lower.contains("lunch") || lower.contains("dinner")
+                || lower.contains("breakfast") || lower.contains("meal"))
+            return "🍔";
+        if (lower.contains("transport") || lower.contains("uber") || lower.contains("cab")
+                || lower.contains("fuel") || lower.contains("petrol") || lower.contains("bus")
+                || lower.contains("metro") || lower.contains("auto"))
+            return "🚗";
+        if (lower.contains("bill") || lower.contains("electricity") || lower.contains("water")
+                || lower.contains("gas") || lower.contains("wifi") || lower.contains("internet")
+                || lower.contains("recharge") || lower.contains("phone"))
+            return "🧾";
+        if (lower.contains("shop") || lower.contains("amazon") || lower.contains("flipkart")
+                || lower.contains("cloth") || lower.contains("buy"))
+            return "🛍";
+        if (lower.contains("health") || lower.contains("medicine") || lower.contains("doctor")
+                || lower.contains("hospital") || lower.contains("gym") || lower.contains("medical"))
+            return "💊";
+        if (lower.contains("rent") || lower.contains("emi") || lower.contains("loan"))
+            return "🏠";
+        if (lower.contains("movie") || lower.contains("entertainment") || lower.contains("netflix")
+                || lower.contains("game"))
+            return "🎬";
+        if (lower.contains("grocery") || lower.contains("vegetable") || lower.contains("milk")
+                || lower.contains("fruit"))
+            return "🛒";
+        if (lower.contains("coffee") || lower.contains("tea") || lower.contains("chai"))
+            return "☕";
+        if (lower.contains("education") || lower.contains("book") || lower.contains("course")
+                || lower.contains("fee") || lower.contains("tuition"))
+            return "📚";
 
-    private int bgFor(String category) {
-        if (category == null) return R.drawable.badge_bg_blue;
-        switch (category) {
-            case "Food":      return R.drawable.badge_bg_yellow;
-            case "Transport": return R.drawable.badge_bg_blue;
-            case "Bills":     return R.drawable.badge_bg_green;
-            case "Shopping":  return R.drawable.badge_bg_blue;
-            case "Health":    return R.drawable.badge_bg_green;
-            default:          return R.drawable.badge_bg_blue;
-        }
+        return "💰"; // default
     }
 
     // ── ViewHolder ────────────────────────────────────────────────────────────
@@ -130,5 +149,3 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
         }
     }
 }
-
-

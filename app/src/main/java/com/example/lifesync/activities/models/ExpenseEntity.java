@@ -6,21 +6,22 @@ import androidx.annotation.NonNull;
 
 /**
  * Room entity for the Expense Tracker module.
+ * Category field is kept for backward compatibility but is now optional/unused.
  */
 @Entity(tableName = "expenses")
 public class ExpenseEntity {
 
     @PrimaryKey
     @NonNull
-    public String id;           // Firestore document ID
+    public String id;
 
-    public String userId;       // Firebase Auth UID
-    public String title;        // e.g. "Lunch", "Rent"
-    public String category;     // e.g. "Food", "Transport", "Bills", "Other"
-    public double amount;       // in user's currency
-    public String note;         // optional extra info
-    public long   date;         // epoch millis of when expense occurred
-    public long   createdAt;
+    public String  userId;
+    public String  title;        // e.g. "Lunch", "Rent", "Gym" — used for pie chart grouping
+    public String  category;     // kept for backward compatibility, defaults to "General"
+    public double  amount;
+    public String  note;
+    public long    date;         // epoch millis
+    public long    createdAt;
     public boolean isSynced;
 
     public ExpenseEntity() {}
@@ -30,7 +31,7 @@ public class ExpenseEntity {
         this.id        = id;
         this.userId    = userId;
         this.title     = title;
-        this.category  = category;
+        this.category  = category;   // will default to "General"
         this.amount    = amount;
         this.note      = note;
         this.date      = date;

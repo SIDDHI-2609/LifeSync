@@ -5,9 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Transformations;
-
 
 import com.example.lifesync.activities.database.ExpenseDao;
 import com.example.lifesync.activities.models.NoteEntity;
@@ -29,9 +27,9 @@ public class DashboardViewModel extends AndroidViewModel {
     private final NoteRepository noteRepo;
 
     // ── Expense ───────────────────────────────────────────────────────────────
-    public final LiveData<List<ExpenseDao.CategoryTotal>> categoryTotals;
-    public final LiveData<List<ExpenseDao.DailyTotal>>    dailyTotals;
-    public final LiveData<Double>                         totalExpense;
+    public final LiveData<List<ExpenseDao.TitleTotal>> categoryTotals;
+    public final LiveData<List<ExpenseDao.DailyTotal>> dailyTotals;
+    public final LiveData<Double>                      totalExpense;
 
     // ── Notes ─────────────────────────────────────────────────────────────────
     /** Last 3 notes — shown as previews on the dashboard */
@@ -55,9 +53,13 @@ public class DashboardViewModel extends AndroidViewModel {
         todoRepo    = new TodoRepository(app);
         noteRepo    = new NoteRepository(app);
 
-        // Expense
-        categoryTotals = expenseRepo.getTotalByCategory();
-        dailyTotals    = expenseRepo.getDailyTotals();
+        long now = System.currentTimeMillis();
+        long thirtyDaysAgo = now - (30L * 24 * 60 * 60 * 1000);
+        long sevenDaysAgo  = now - (7L * 24 * 60 * 60 * 1000);
+
+        // Expense - Using TitleTotal for pie chart
+        categoryTotals = expenseRepo.getTotalByTitleInRange(thirtyDaysAgo, now);
+        dailyTotals    = expenseRepo.getDailyTotals(sevenDaysAgo);
         totalExpense   = expenseRepo.getTotalAmount();
 
         // Notes — take only the 3 most recent
@@ -73,7 +75,6 @@ public class DashboardViewModel extends AndroidViewModel {
         // Upcoming alarm task — first pending todo that has a future alarm
         upcomingAlarmTask = Transformations.map(todoRepo.getPendingTodos(), todos -> {
             if (todos == null) return null;
-            long now = System.currentTimeMillis();
             for (TodoEntity t : todos) {
                 if (t.alarmTimeMillis > now) return t; // already sorted ASC by alarm time
             }

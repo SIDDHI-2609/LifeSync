@@ -25,32 +25,58 @@ public interface ExpenseDao {
     @Query("DELETE FROM expenses WHERE userId = :userId")
     void deleteAllByUser(String userId);
 
-    // ── Live queries (auto-refresh UI) ────────────────────────────────────────
+    // ── Live queries ──────────────────────────────────────────────────────────
 
     @Query("SELECT * FROM expenses WHERE userId = :userId ORDER BY date DESC")
     LiveData<List<ExpenseEntity>> getAllExpenses(String userId);
 
-    /** Filter by category */
-    @Query("SELECT * FROM expenses WHERE userId = :userId AND category = :category ORDER BY date DESC")
-    LiveData<List<ExpenseEntity>> getExpensesByCategory(String userId, String category);
-
-    /** Filter by date range (e.g. current month) */
+    /** Filter by date range */
     @Query("SELECT * FROM expenses WHERE userId = :userId AND date BETWEEN :from AND :to ORDER BY date DESC")
     LiveData<List<ExpenseEntity>> getExpensesByDateRange(String userId, long from, long to);
 
-    // ── Analytics queries (for Dashboard charts) ──────────────────────────────
+    // ── Analytics: Title-based Pie Chart ──────────────────────────────────────
 
-    /** Total spent per category — used for Pie Chart */
-    @Query("SELECT category, SUM(amount) as total FROM expenses WHERE userId = :userId GROUP BY category")
-    LiveData<List<CategoryTotal>> getTotalByCategory(String userId);
+    /** Total spent per TITLE (all time) — used for Pie Chart */
+    @Query("SELECT title, SUM(amount) as total FROM expenses WHERE userId = :userId GROUP BY title ORDER BY total DESC")
+    LiveData<List<TitleTotal>> getTotalByTitle(String userId);
 
-    /** Total spent per day for the last 30 days — used for Bar Chart */
-    @Query("SELECT date, SUM(amount) as total FROM expenses WHERE userId = :userId AND date >= :since GROUP BY date ORDER BY date ASC")
+    /** Total spent per TITLE within date range — used for filtered Pie Chart */
+    @Query("SELECT title, SUM(amount) as total FROM expenses " +
+            "WHERE userId = :userId AND date BETWEEN :from AND :to " +
+            "GROUP BY title ORDER BY total DESC")
+    LiveData<List<TitleTotal>> getTotalByTitleInRange(String userId, long from, long to);
+
+    // ── Analytics: Bar Chart — flexible date grouping ─────────────────────────
+
+    /** Daily totals within a range — for Day/Week view bar chart */
+    @Query("SELECT date, SUM(amount) as total FROM expenses " +
+            "WHERE userId = :userId AND date >= :since " +
+            "GROUP BY (date / 86400000) ORDER BY date ASC")
     LiveData<List<DailyTotal>> getDailyTotals(String userId, long since);
 
-    /** Grand total for a user */
+    /** Daily totals within a specific range */
+    @Query("SELECT date, SUM(amount) as total FROM expenses " +
+            "WHERE userId = :userId AND date BETWEEN :from AND :to " +
+            "GROUP BY (date / 86400000) ORDER BY date ASC")
+    LiveData<List<DailyTotal>> getDailyTotalsInRange(String userId, long from, long to);
+
+    /** Monthly totals for year view — groups by month */
+    @Query("SELECT date, SUM(amount) as total FROM expenses " +
+            "WHERE userId = :userId AND date BETWEEN :from AND :to " +
+            "GROUP BY ((date / 86400000) / 30) ORDER BY date ASC")
+    LiveData<List<DailyTotal>> getMonthlyTotals(String userId, long from, long to);
+
+    // ── Grand totals ──────────────────────────────────────────────────────────
+
     @Query("SELECT SUM(amount) FROM expenses WHERE userId = :userId")
     LiveData<Double> getTotalAmount(String userId);
+
+    /** Total in a date range */
+    @Query("SELECT SUM(amount) FROM expenses WHERE userId = :userId AND date BETWEEN :from AND :to")
+    LiveData<Double> getTotalAmountInRange(String userId, long from, long to);
+
+    @Query("SELECT COUNT(*) FROM expenses WHERE userId = :userId AND date BETWEEN :from AND :to")
+    LiveData<Integer> getExpenseCountInRange(String userId, long from, long to);
 
     @Query("SELECT SUM(amount) FROM expenses WHERE userId = :userId")
     double getTotalExpenses(String userId);
@@ -69,15 +95,22 @@ public interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE userId = :userId ORDER BY date DESC")
     List<ExpenseEntity> getAllExpensesSync(String userId);
 
-    // ── Nested result classes for aggregate queries ───────────────────────────
+    // ── Result classes ────────────────────────────────────────────────────────
 
-    class CategoryTotal {
-        public String category;
+    /** For title-based pie chart */
+    class TitleTotal {
+        public String title;
         public double total;
     }
 
     class DailyTotal {
         public long   date;
+        public double total;
+    }
+
+    // Kept for backward compatibility if needed
+    class CategoryTotal {
+        public String category;
         public double total;
     }
 }
