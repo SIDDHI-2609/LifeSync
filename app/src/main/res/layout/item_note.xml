@@ -1,63 +1,127 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardNote"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="10dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="5dp">
-
-<LinearLayout
-    android:padding="10dp"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tvContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Note description goes here..."/>
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        android:gravity="end">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="Delete"
-            android:textAllCaps="false"
-            android:layout_marginEnd="65dp"
-            app:backgroundTint="#50A886"
-            android:textStyle="bold"
-            app:cornerRadius="15dp"/>
+        <!-- Top row: color dot + title + action buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
 
-        <Button
-            android:id="@+id/btnEdit"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="Edit"
-            android:textAllCaps="false"
-            android:layout_marginEnd="25dp"
-            app:backgroundTint="#50A886"
-            android:textStyle="bold"
-            app:cornerRadius="15dp" />
+            <!-- Colored left accent dot (decorative) -->
+            <View
+                android:id="@+id/viewAccent"
+                android:layout_width="4dp"
+                android:layout_height="36dp"
+                android:background="@drawable/note_accent_yellow"
+                android:layout_marginEnd="12dp" />
 
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvNoteTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1B1F3B"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <!-- Edit button -->
+            <ImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_edit"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="#4C6EF5"
+                android:layout_marginStart="4dp"
+                android:contentDescription="Edit note" />
+
+            <!-- Delete button -->
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="#FF5252"
+                android:layout_marginStart="4dp"
+                android:contentDescription="Delete note" />
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F5F5F5"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Content preview -->
+        <TextView
+            android:id="@+id/tvNoteContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#555555"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Bottom row: date + word count -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Date chip -->
+            <TextView
+                android:id="@+id/tvNoteDate"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:textSize="10sp"
+                android:textColor="#8E9BB5"
+                android:background="@drawable/chip_bg"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:gravity="center"
+                android:layout_marginEnd="8dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Word count -->
+            <TextView
+                android:id="@+id/tvWordCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#BBBBBB" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
-
 </androidx.cardview.widget.CardView>
