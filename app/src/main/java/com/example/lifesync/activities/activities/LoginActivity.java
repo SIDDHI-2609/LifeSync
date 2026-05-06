@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lifesync.R;
+import com.example.lifesync.activities.database.FirebaseSyncManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // ── Views ─────────────────────────────────────────────────────────────────
     private TextInputEditText etEmail, etPassword;
     private TextView          errEmail, errPassword;
     private TextView          tvForgotPassword, tvSignUp;
@@ -27,8 +28,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    // ─────────────────────────────────────────────────────────────────────────
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,18 +35,16 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        // If user is already signed in, go straight to MainActivity
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            goToMain();
+        // Already signed in — pull fresh data then go to main
+        FirebaseUser current = mAuth.getCurrentUser();
+        if (current != null) {
+            pullThenNavigate();
             return;
         }
 
         bindViews();
         setupListeners();
     }
-
-    // ── Bind ──────────────────────────────────────────────────────────────────
 
     private void bindViews() {
         etEmail          = findViewById(R.id.etEmail);
@@ -62,92 +59,69 @@ public class LoginActivity extends AppCompatActivity {
         tvFirebaseError  = findViewById(R.id.tvFirebaseError);
     }
 
-    // ── Listeners ─────────────────────────────────────────────────────────────
-
     private void setupListeners() {
-
-        // ── Sign In ───────────────────────────────────────────────────────────
-        btnLogin.setOnClickListener(v -> {
-            if (validate()) signIn();
-        });
-
-        // ── Forgot password ───────────────────────────────────────────────────
+        btnLogin.setOnClickListener(v -> { if (validate()) signIn(); });
         tvForgotPassword.setOnClickListener(v -> showForgotPasswordDialog());
-
-        // ── Go to Sign Up ─────────────────────────────────────────────────────
         tvSignUp.setOnClickListener(v -> {
             startActivity(new Intent(this, SignupActivity.class));
             finish();
         });
-
-        // ── Google Sign-In stub ───────────────────────────────────────────────
-        // Replace with actual Google Sign-In flow if needed.
         btnGoogleSignIn.setOnClickListener(v ->
-                showError("Google Sign-In coming soon. Use email & password for now."));
-
-        // Clear error banner when user starts typing again
-        etEmail.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) hideErrorBanner();
-        });
-        etPassword.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) hideErrorBanner();
-        });
+                Toast.makeText(this, "Google Sign-In coming soon", Toast.LENGTH_SHORT).show());
+        etEmail.setOnFocusChangeListener((v, f)    -> { if (f) hideErrorBanner(); });
+        etPassword.setOnFocusChangeListener((v, f) -> { if (f) hideErrorBanner(); });
     }
-
-    // ── Validation ────────────────────────────────────────────────────────────
 
     private boolean validate() {
         boolean ok = true;
-
-        String email = text(etEmail);
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errEmail.setVisibility(View.VISIBLE);
-            ok = false;
-        } else {
-            errEmail.setVisibility(View.GONE);
-        }
-
-        String password = text(etPassword);
-        if (password.isEmpty()) {
-            errPassword.setVisibility(View.VISIBLE);
-            ok = false;
-        } else {
-            errPassword.setVisibility(View.GONE);
-        }
-
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(text(etEmail)).matches()) {
+            errEmail.setVisibility(View.VISIBLE); ok = false;
+        } else errEmail.setVisibility(View.GONE);
+        if (text(etPassword).isEmpty()) {
+            errPassword.setVisibility(View.VISIBLE); ok = false;
+        } else errPassword.setVisibility(View.GONE);
         return ok;
     }
 
-    // ── Firebase Sign In ──────────────────────────────────────────────────────
-
     private void signIn() {
-        String email    = text(etEmail);
-        String password = text(etPassword);
+        setLoading(true, "Signing in…");
 
-        setLoading(true);
-
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(text(etEmail), text(etPassword))
                 .addOnCompleteListener(this, task -> {
-                    setLoading(false);
                     if (task.isSuccessful()) {
-                        hideErrorBanner();
-                        goToMain();
+                        // ── KEY FIX ──────────────────────────────────────────────
+                        // Pull ALL data from Firestore into Room BEFORE navigating.
+                        // Previously we went straight to MainActivity while Room
+                        // was still empty — the UI showed nothing.
+                        pullThenNavigate();
                     } else {
-                        String msg = task.getException() != null
-                                ? friendlyError(task.getException().getMessage())
-                                : "Sign in failed. Please try again.";
-                        showError(msg);
+                        setLoading(false, "Sign In");
+                        showError(friendlyError(
+                                task.getException() != null
+                                        ? task.getException().getMessage() : null));
                     }
                 });
     }
 
-    // ── Forgot Password ───────────────────────────────────────────────────────
+    /**
+     * Shows "Loading your data..." on the button, pulls from Firestore,
+     * then navigates to MainActivity once all 3 collections are in Room.
+     */
+    private void pullThenNavigate() {
+        setLoading(true, "Loading your data…");
+
+        FirebaseSyncManager sync = new FirebaseSyncManager(this);
+        sync.syncAll(() -> {
+            // Callback fires on main thread when notes + expenses + todos are all pulled
+            runOnUiThread(() -> {
+                setLoading(false, "Sign In");
+                goToMain();
+            });
+        });
+    }
 
     private void showForgotPasswordDialog() {
-        // Pre-fill with whatever email is already typed
         String prefill = text(etEmail);
-
-        // Build a simple input dialog
         final TextInputEditText input = new TextInputEditText(this);
         input.setHint("Enter your email");
         input.setText(prefill);
@@ -166,83 +140,55 @@ public class LoginActivity extends AppCompatActivity {
                         showError("Enter a valid email to reset your password.");
                         return;
                     }
-                    sendPasswordReset(resetEmail);
+                    mAuth.sendPasswordResetEmail(resetEmail)
+                            .addOnSuccessListener(v ->
+                                    new AlertDialog.Builder(this)
+                                            .setTitle("Email Sent ✓")
+                                            .setMessage("Reset link sent to " + resetEmail)
+                                            .setPositiveButton("OK", null).show())
+                            .addOnFailureListener(e ->
+                                    showError(friendlyError(e.getMessage())));
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
     }
 
-    private void sendPasswordReset(String email) {
-        btnLogin.setEnabled(false);
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    btnLogin.setEnabled(true);
-                    if (task.isSuccessful()) {
-                        new AlertDialog.Builder(this)
-                                .setTitle("Email Sent")
-                                .setMessage("A password reset link was sent to " + email
-                                        + ". Check your inbox.")
-                                .setPositiveButton("OK", null)
-                                .show();
-                    } else {
-                        String msg = task.getException() != null
-                                ? friendlyError(task.getException().getMessage())
-                                : "Could not send reset email. Try again.";
-                        showError(msg);
-                    }
-                });
-    }
-
-    // ── Loading state ─────────────────────────────────────────────────────────
-
-    private void setLoading(boolean loading) {
+    private void setLoading(boolean loading, String buttonText) {
+        if (btnLogin == null) return;
         btnLogin.setEnabled(!loading);
-        btnLogin.setText(loading ? "Signing in…" : "Sign In");
-        etEmail.setEnabled(!loading);
-        etPassword.setEnabled(!loading);
+        btnLogin.setText(buttonText);
+        if (etEmail    != null) etEmail.setEnabled(!loading);
+        if (etPassword != null) etPassword.setEnabled(!loading);
     }
 
-    // ── Error banner ──────────────────────────────────────────────────────────
-
-    private void showError(String message) {
-        tvFirebaseError.setText(message);
+    private void showError(String msg) {
+        tvFirebaseError.setText(msg);
         layoutError.setVisibility(View.VISIBLE);
     }
 
-    private void hideErrorBanner() {
-        layoutError.setVisibility(View.GONE);
-    }
-
-    // ── Navigation ────────────────────────────────────────────────────────────
+    private void hideErrorBanner() { layoutError.setVisibility(View.GONE); }
 
     private void goToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
         finish();
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
-
     private String text(TextInputEditText et) {
-        return et.getText() != null ? et.getText().toString().trim() : "";
+        return et != null && et.getText() != null ? et.getText().toString().trim() : "";
     }
 
-    /**
-     * Converts raw Firebase error messages into user-friendly text.
-     */
     private String friendlyError(String raw) {
         if (raw == null) return "Something went wrong. Try again.";
         if (raw.contains("no user record") || raw.contains("user-not-found"))
-            return "No account found with this email. Please sign up first.";
+            return "No account found with this email.";
         if (raw.contains("password is invalid") || raw.contains("wrong-password"))
             return "Incorrect password. Please try again.";
         if (raw.contains("too many requests"))
-            return "Too many failed attempts. Please wait a moment and try again.";
+            return "Too many attempts. Please wait and try again.";
         if (raw.contains("network"))
-            return "No internet connection. Check your network and retry.";
-        if (raw.contains("email address is badly formatted"))
-            return "That email address doesn't look right.";
+            return "No internet connection. Check your network.";
         return "Sign in failed. Please check your credentials.";
     }
 }

@@ -34,6 +34,9 @@ public interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE userId = :userId AND date BETWEEN :from AND :to ORDER BY date DESC")
     LiveData<List<ExpenseEntity>> getExpensesByDateRange(String userId, long from, long to);
 
+    @Query("SELECT * FROM expenses WHERE userId = :userId AND category = :category ORDER BY date DESC")
+    LiveData<List<ExpenseEntity>> getExpensesByCategory(String userId, String category);
+
     // ── Analytics: Title-based Pie Chart ──────────────────────────────────────
 
     /** Total spent per TITLE (all time) — used for Pie Chart */
@@ -45,6 +48,11 @@ public interface ExpenseDao {
             "WHERE userId = :userId AND date BETWEEN :from AND :to " +
             "GROUP BY title ORDER BY total DESC")
     LiveData<List<TitleTotal>> getTotalByTitleInRange(String userId, long from, long to);
+
+    // ── Analytics: Category-based ─────────────────────────────────────────────
+
+    @Query("SELECT category, SUM(amount) as total FROM expenses WHERE userId = :userId GROUP BY category ORDER BY total DESC")
+    LiveData<List<CategoryTotal>> getTotalByCategory(String userId);
 
     // ── Analytics: Bar Chart — flexible date grouping ─────────────────────────
 
@@ -98,18 +106,18 @@ public interface ExpenseDao {
     // ── Result classes ────────────────────────────────────────────────────────
 
     /** For title-based pie chart */
-    class TitleTotal {
+    public static class TitleTotal {
         public String title;
         public double total;
     }
 
-    class DailyTotal {
+    public static class DailyTotal {
         public long   date;
         public double total;
     }
 
-    // Kept for backward compatibility if needed
-    class CategoryTotal {
+    /** For category-based analytics */
+    public static class CategoryTotal {
         public String category;
         public double total;
     }

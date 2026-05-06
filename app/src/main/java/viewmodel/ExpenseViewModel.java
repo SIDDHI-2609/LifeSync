@@ -5,17 +5,15 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import com.example.lifesync.activities.database.ExpenseDao;
 import com.example.lifesync.activities.models.ExpenseEntity;
+import com.example.lifesync.activities.repository.ExpenseRepository;
 
 import java.util.Calendar;
 import java.util.List;
-
-import repository.ExpenseRepository;
 
 public class ExpenseViewModel extends AndroidViewModel {
 

@@ -1,11 +1,10 @@
 package repository;
 
 import android.content.Context;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.lifesync.activities.database.AppDatabase;
 import com.example.lifesync.activities.database.FirebaseSyncManager;
+
 import com.example.lifesync.activities.database.NoteDao;
 import com.example.lifesync.activities.models.NoteEntity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,26 +14,19 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * All Note operations go through here.
- * Activity/Fragment → ViewModel → Repository → Room + Firebase
- */
 public class NoteRepository {
 
     private final NoteDao dao;
     private final FirebaseSyncManager sync;
-    private final String            userId;
-    private final ExecutorService   executor = Executors.newSingleThreadExecutor();
+    private final String              userId;
+    private final ExecutorService     executor = Executors.newSingleThreadExecutor();
 
     public NoteRepository(Context context) {
-        AppDatabase db = AppDatabase.getInstance(context);
-        this.dao    = db.noteDao();
-        this.sync   = new FirebaseSyncManager(context);
-        this.userId = FirebaseAuth.getInstance().getCurrentUser() != null
+        dao    = AppDatabase.getInstance(context).noteDao();
+        sync   = new FirebaseSyncManager(context);
+        userId = FirebaseAuth.getInstance().getCurrentUser() != null
                 ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
     }
-
-    // ── Read (LiveData — auto-updates UI) ─────────────────────────────────────
 
     public LiveData<List<NoteEntity>> getAllNotes() {
         return dao.getAllNotes(userId);
@@ -44,17 +36,13 @@ public class NoteRepository {
         return dao.searchNotes(userId, query);
     }
 
-    // ── Write ─────────────────────────────────────────────────────────────────
-
     public void addNote(String title, String content) {
         NoteEntity note = new NoteEntity(
-                UUID.randomUUID().toString(),   // unique ID used in both Room & Firestore
-                userId, title, content,
-                System.currentTimeMillis(),
-                System.currentTimeMillis());
+                UUID.randomUUID().toString(), userId, title, content,
+                System.currentTimeMillis(), System.currentTimeMillis());
         executor.execute(() -> {
             dao.insert(note);
-            sync.pushNote(note);               // immediate cloud push
+            sync.pushNote(note);
         });
     }
 
@@ -67,8 +55,6 @@ public class NoteRepository {
         });
     }
 
-    // ── Delete (only when user explicitly requests) ───────────────────────────
-
     public void deleteNote(NoteEntity note) {
         executor.execute(() -> {
             dao.delete(note);
@@ -78,16 +64,11 @@ public class NoteRepository {
 
     public void deleteAllNotes() {
         executor.execute(() -> {
-            // Fetch IDs first, then delete from Firestore one by one
             List<NoteEntity> all = dao.getAllNotesSync(userId);
             for (NoteEntity n : all) sync.deleteNoteFromFirestore(n.id);
             dao.deleteAllByUser(userId);
         });
     }
 
-    // ── Sync ──────────────────────────────────────────────────────────────────
-
-    public void syncWithFirebase() {
-        sync.syncAll();
-    }
+    public void syncWithFirebase() { sync.syncAll(); }
 }

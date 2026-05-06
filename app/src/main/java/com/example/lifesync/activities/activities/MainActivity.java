@@ -2,7 +2,6 @@ package com.example.lifesync.activities.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -15,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.lifesync.R;
 import com.example.lifesync.activities.database.ExpenseDao;
+import com.example.lifesync.activities.database.FirebaseSyncManager;
 import com.example.lifesync.activities.models.NoteEntity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         setupCardClicks();
         setupFab();
         setupViewModel();
+
+        FirebaseSyncManager sync = new FirebaseSyncManager(this);
+        sync.startRealTimeListeners();
     }
 
     // ── Bind ──────────────────────────────────────────────────────────────────
