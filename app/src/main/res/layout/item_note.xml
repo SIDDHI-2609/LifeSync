@@ -11,12 +11,13 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="16dp"
     app:cardElevation="3dp"
-    app:cardBackgroundColor="#FFFFFF">
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="?android:colorBackground"
         android:padding="16dp">
 
         <!-- Top row: color dot + title + action buttons -->
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="?android:colorBackground"
             android:layout_marginBottom="10dp">
 
             <!-- Colored left accent dot (decorative) -->
@@ -43,7 +45,7 @@
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="#1B1F3B"
+                android:textColor="?attr/colorOnSurface"
                 android:maxLines="1"
                 android:ellipsize="end" />
 
@@ -83,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13sp"
-            android:textColor="#555555"
+            android:textColor="?attr/colorOnSurface"
             android:maxLines="3"
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.4"
@@ -94,6 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="?android:colorBackground"
             android:gravity="center_vertical">
 
             <!-- Date chip -->
@@ -119,8 +122,8 @@
                 android:id="@+id/tvWordCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:textColor="#BBBBBB" />
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="10sp" />
 
         </LinearLayout>
     </LinearLayout>
