@@ -2,6 +2,7 @@ package com.example.lifesync.activities.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +77,9 @@ public class ThemeActivity extends BaseActivity {
         finish();
         return true;
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
 
     }
