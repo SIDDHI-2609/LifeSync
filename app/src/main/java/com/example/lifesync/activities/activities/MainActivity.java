@@ -1,6 +1,7 @@
 package com.example.lifesync.activities.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.lifesync.R;
@@ -35,7 +37,7 @@ import java.util.Locale;
 
 import viewmodel.DashboardViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     // ── Views ─────────────────────────────────────────────────────────────────
     private TextView         tvGreeting, tvUserName;
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -139,11 +144,11 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case 1:
                     // TODO: startActivity(new Intent(this, SettingsActivity.class));
-                    Toast.makeText(this, "Settings coming soon", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, SettingActivity.class));
                     return true;
                 case 2:
                     // TODO: open theme picker
-                    Toast.makeText(this, "Theme coming soon", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,ThemeActivity.class));
                     return true;
                 case 3:
                     logout();

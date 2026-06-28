@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F2F8">
+    android:background="?android:colorBackground">
 
     <!-- ══ APP BAR ══════════════════════════════════════════════════════════ -->
     <com.google.android.material.appbar.AppBarLayout
@@ -86,7 +86,7 @@
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
-                    app:cardBackgroundColor="#FFFFFF">
+                    app:cardBackgroundColor="?attr/colorSurface">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                             android:text="₹0.00"
                             android:textSize="22sp"
                             android:textStyle="bold"
-                            android:textColor="#1B1F3B"/>
+                            android:textColor="?attr/colorOnSurface" />
                         <TextView
                             android:id="@+id/tvPeriodCount"
                             android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="14dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -146,7 +146,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/tabWeek"
@@ -159,7 +159,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/tabMonth"
@@ -172,7 +172,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:background="@drawable/chip_selected"
-                        android:textColor="#FFFFFF"/>
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/tabYear"
@@ -184,7 +184,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:background="@drawable/chip_unselected"
-                        android:textColor="#555555"/>
+                        android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -195,7 +195,7 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -209,7 +209,7 @@
                         android:text="Spending by Title"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:textColor="#1B1F3B"
+                        android:textColor="?attr/colorOnSurface"
                         android:layout_marginBottom="4dp"/>
 
                     <TextView
@@ -245,7 +245,7 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -266,7 +266,7 @@
                             android:text="Daily Spending"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            android:textColor="#1B1F3B"/>
+                            android:textColor="?attr/colorOnSurface" />
 
                         <TextView
                             android:id="@+id/tvBarSubtitle"
@@ -311,7 +311,7 @@
                     android:text="This Month's Expenses"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#1B1F3B"/>
+                    android:textColor="?attr/colorOnSurface" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDeleteAll"
@@ -322,7 +322,7 @@
                     android:visibility="gone"
                     app:cornerRadius="8dp"
                     app:backgroundTint="#FFEBEE"
-                    android:textColor="#E53935"/>
+                    android:textColor="?attr/colorOnSurface"/>
             </LinearLayout>
 
             <!-- Empty state -->

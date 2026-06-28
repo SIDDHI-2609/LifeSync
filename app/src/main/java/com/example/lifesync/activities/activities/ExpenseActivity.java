@@ -42,7 +42,7 @@ import java.util.Locale;
 
 import viewmodel.ExpenseViewModel;
 
-public class ExpenseActivity extends AppCompatActivity
+public class ExpenseActivity extends BaseActivity
         implements ExpenseAdapter.OnExpenseActionListener {
 
     // ── Views ─────────────────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ public class ExpenseActivity extends AppCompatActivity
         activeTab = tabMonth; // default
     }
 
-    private void setupToolbar() {
+    public void setupToolbar() {
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);

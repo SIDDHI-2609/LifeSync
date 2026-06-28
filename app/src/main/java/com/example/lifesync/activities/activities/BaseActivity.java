@@ -1,18 +1,16 @@
 package com.example.lifesync.activities.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.view.MenuItem;
 import android.view.Menu;
 
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.lifesync.R;
 
@@ -20,8 +18,17 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle s) {
+
+        SharedPreferences prefs =
+                getSharedPreferences("SmartAssistantPrefs", MODE_PRIVATE);
+
+        boolean isDarkMode = prefs.getBoolean("dark_mode", false);
+
+        AppCompatDelegate.setDefaultNightMode(
+                isDarkMode
+                        ? AppCompatDelegate.MODE_NIGHT_YES
+                        : AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(s);
-        setContentView(R.layout.activity_base);
     }
     public void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -40,7 +47,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (id == R.id.menu_profile) {
             Toast.makeText(this, "Opening Profile...", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(this, ThemeActivity.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.menu_settings) {

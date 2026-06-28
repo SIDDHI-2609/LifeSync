@@ -28,7 +28,7 @@ import java.util.Locale;
 
 import viewmodel.DashboardViewModel;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
 
     private DashboardViewModel viewModel;
     private PieChart pieChart;

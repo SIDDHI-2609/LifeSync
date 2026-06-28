@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
+        android:name=".AppSetup"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -56,12 +57,17 @@
             android:name=".activities.activities.ExpenseActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.activities.SettingActivity"
+            android:exported="false" />
+        <activity android:name=".activities.activities.ThemeActivity"
+            android:exported="false"/>
+        <activity
             android:name=".activities.activities.NotesActivity"
             android:exported="false" />
         <activity
             android:name=".activities.activities.LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

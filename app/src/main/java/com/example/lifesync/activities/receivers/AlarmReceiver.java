@@ -36,6 +36,16 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive fired");
+        // Check if notifications are enabled from Settings
+        boolean notificationsEnabled = context
+                .getSharedPreferences("SettingsPrefs", Context.MODE_PRIVATE)
+                .getBoolean("notifications", true);
+
+        if (!notificationsEnabled) {
+            Log.d(TAG, "Notifications are disabled");
+            return;
+        }
+
 
         // ── WakeLock: keep CPU awake for entire method ────────────────────────
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);

@@ -35,7 +35,7 @@ import java.util.Locale;
 
 import viewmodel.TodoViewModel;
 
-public class TodoActivity extends AppCompatActivity
+public class TodoActivity extends BaseActivity
         implements TodoAdapter.OnTaskActionListener {
 
     // ── Views ─────────────────────────────────────────────────────────────────
